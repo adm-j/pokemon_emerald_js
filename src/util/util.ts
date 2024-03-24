@@ -1,0 +1,6 @@
+export const constants = {
+    canvasWidth: 800,
+    canvasHeight: 600,
+    tileWidth: 16,
+    tileHeight: 16
+}
