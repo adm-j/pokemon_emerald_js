@@ -3,8 +3,8 @@
  <editorsettings>
   <export target="../tilemap/newbarktown.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="emerald_exterior" tilewidth="16" tileheight="16" tilecount="6072" columns="88">
-  <image source="emerald_tileset.png" width="1408" height="1104"/>
+ <tileset firstgid="1" name="emerald_exterior" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="6072" columns="88">
+  <image source="emerald_tileset.png" width="1584" height="1242"/>
  </tileset>
  <tileset firstgid="6073" name="emerald_interiors" tilewidth="16" tileheight="16" tilecount="12288" columns="192">
   <image source="emerald_interiors.png" width="3072" height="1024"/>

@@ -3,12 +3,11 @@ import Vector2 = Phaser.Math.Vector2;
 import {player} from "../player/player.ts";
 
 import internalTiles from "../assets/tileset/emerald_tileset.png"
-import newBarkTown from "../assets/tileset/newbarktown.json";
+import newBarkTown from "../assets/tilemap/newbarktown.json";
 import playerDown from "../assets/sprites/male_pc_down.png";
 import playerUp from "../assets/sprites/male_pc_up.png";
 import playerRight from "../assets/sprites/male_pc_right.png";
 import playerLeft from "../assets/sprites/male_pc_left.png";
-import {constants} from "../util/util.ts";
 
 export class mainScene extends Phaser.Scene {
     constructor() {
@@ -43,47 +42,10 @@ export class mainScene extends Phaser.Scene {
         this.cameras.main.startFollow(pcSprite);
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
-        // const coordinatesDebug = movement.setMapCoordinates(2, 6)
-        // this.add.text(coordinatesDebug.x, coordinatesDebug.y, `X: ${144} Y: ${192}`, {fontStyle: "ariel", fontSize: 22});
-
-        // this.cameras.main.roundPixels = true;
-        // player.setScale(2, 2);
     }
 
     update() {
         const cursors = this.input.keyboard?.createCursorKeys();
-        // console.log(this.time.startTime);
-        // if (this.moveTimer !== null) {
-        //     this.moveTimer.remove(false);
-        // }
-        //
-        // this.moveTimer = this.time.addEvent({
-        //     delay: this.moveDelay,
-        //     callback: () => {
-        //
-        //     },
-        //     callbackScope: this,
-        //     loop: false
-        // })
-        const move = (vector2: Vector2) => {
-
-            const curPos = this.player.getPosition();
-            // console.log(this.player.getPosition())
-            const newX = curPos.x + (vector2.x * constants.tileHeight);
-            const newY = curPos.y + (vector2.y * constants.tileWidth);
-            console.log(newX, newY)
-            this.tweens.add({
-                targets: this.player,
-                x: newX,
-                y: newY,
-                duration: 200,
-                ease: "linear",
-                onComplete: () => {
-                    // console.log("moved!");
-                    console.log(this.player.getPosition())
-            }, callbackScope: this
-            })
-        }
 
         if (cursors?.left.isDown) {
             // move(Vector2.LEFT)
