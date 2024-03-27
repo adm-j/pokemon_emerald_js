@@ -10,3 +10,9 @@ export enum playerAnimationDelay {
     move = 250
 
 }
+
+export enum movementState {
+    idle = -1,
+    stepAnim1 = 0,
+    stepAnim2 = 1
+}
