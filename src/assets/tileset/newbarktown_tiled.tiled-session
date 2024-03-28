@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "newBarkTown.tmx",
+    "activeFile": "littleroottown.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -21,12 +21,26 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "littleroottown.tmx": {
+            "scale": 1.4823958333333331,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 240.48907315016515,
+                "y": 159.20174267444315
+            }
+        },
+        "littleroottown.tmx#emerald_exterior": {
+            "scaleInDock": 1
+        },
+        "littleroottown.tmx#emerald_interiors": {
+            "scaleInDock": 1
+        },
         "newBarkTown.tmx": {
             "scale": 1.5,
-            "selectedLayer": 0,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 218.99999999999997,
-                "y": 226
+                "x": 218.33333333333331,
+                "y": 225.33333333333334
             }
         },
         "newBarkTown.tmx#emerald_exterior": {
@@ -64,12 +78,13 @@
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
-        "newBarkTown.tmx",
-        "emerald_interiors.tsx"
+        "emerald_interiors.tsx",
+        "littleroottown.tmx"
     ],
     "project": "newbarktown_tiled.tiled-project",
     "recentFiles": [
         "emerald_interiors.tsx",
+        "littleroottown.tmx",
         "newBarkTown.tmx",
         "emerald_exterior.tsx",
         "emerald_exterior_extruded.tsx",
