@@ -12,6 +12,7 @@ export class player {
     constructor(
         private scene: Phaser.Scene,
         private sprite: Phaser.GameObjects.Sprite,
+        private collisionLayer: Phaser.Tilemaps.TilemapLayer,
         tilePos: Phaser.Math.Vector2
     ) {
         this.sprite.setOrigin(0, 1);
@@ -24,9 +25,21 @@ export class player {
         this.sprite.setPosition(res.x, res.y);
     }
 
-    public getGridPosition(): {x: number, y: number} {
+    public getGridPosition(x: number, y: number): {x: number, y: number} {
         const pos = this.sprite.getBottomCenter();
-        return getMapCoordinates(pos.x, pos.y);
+        return getMapCoordinates(x, y);
+    }
+
+    private checkForCollison(direction: Vector2): { x: number; y: number } {
+        const posX = this.sprite.x + (direction.x * 16);
+        const posY = this.sprite.y + (direction.y * 16) - 16; //required to offset with the origin thats set
+        const tile = this.collisionLayer.getTileAtWorldXY(posX, posY);
+        console.log(posX, posY)
+        if (tile && tile.canCollide) {
+            return {x: this.sprite.x, y: this.sprite.y}
+        } else {
+            return {x: posX, y: posY + 16};
+        }
     }
 
     public move(direction: Vector2): void {
@@ -93,10 +106,18 @@ export class player {
             }
         }
 
+        const newPos = this.checkForCollison(direction);
+        const x = this.sprite.x + (direction.x * constants.tileHeight)
+        const y = this.sprite.y + (direction.x * constants.tileWidth)
+        console.log(newPos);
+        console.log(x, y);
+
         this.scene.tweens.add({
             targets: this.sprite,
-            x: this.sprite.x + (direction.x * constants.tileHeight),
-            y: this.sprite.y + (direction.y * constants.tileWidth),
+            x: newPos.x,
+            y: newPos.y,
+            // x: this.sprite.x + (direction.x * constants.tileHeight),
+            // y: this.sprite.y + (direction.y * constants.tileWidth),
             duration: this.animationDuration,
             ease: "linear",
             onComplete: () => {

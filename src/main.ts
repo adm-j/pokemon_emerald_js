@@ -8,10 +8,10 @@ const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: constants.canvasWidth,
     height: constants.canvasHeight,
-    scene: mainScene
-    // physics: {
-    //
-    // }
+    scene: mainScene,
+    physics: {
+        default: "arcade"
+    }
 }
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `

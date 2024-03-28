@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
 import {player} from "../player/player.ts";
+import {Controller} from "../util/controller.ts"
 
 import internalTiles from "../assets/tileset/emerald_tileset.png"
 import littleRootTown from "../assets/tilemap/littleroottown.json";
@@ -16,6 +17,7 @@ export class mainScene extends Phaser.Scene {
 
     // @ts-ignore
     private player;
+    private controller;
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -33,34 +35,39 @@ export class mainScene extends Phaser.Scene {
         const trees = map.createLayer("trees", tileset, 0, 0);
         const buildings = map.createLayer("buildings", tileset, 0, 0);
         const objects = map.createLayer("objects", tileset, 0, 0);
+        const collision = map.createLayer("collision", tileset, 0, 0);
 
-        buildings?.setDepth(1);
+        ground?.setDepth(0);
         trees?.setDepth(1);
+        objects?.setDepth(0);
+        buildings?.setDepth(1);
+        collision?.setDepth(-1);
+        collision.setCollisionByExclusion([0, 1])
 
-        // this.sprite = this.add.sprite(0,0, "player_down", 0);
         const pcSprite = this.add.sprite(0,0, "player_down", 0)
         pcSprite.setDepth(2);
-        this.player = new player(this, pcSprite, new Vector2(9, 12));
+        this.player = new player(this, pcSprite, collision, new Vector2(9, 12));
+        // this.controller = new Controller(this);
+        // this.controller.AddKeyboardControls();
 
         this.cameras.main.startFollow(pcSprite);
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
+
+        this.physics.add.collider(this.player, collision);
     }
 
     update() {
         const cursors = this.input.keyboard?.createCursorKeys();
+        // this.player.checkForCollison();
 
         if (cursors?.left.isDown) {
-            // move(Vector2.LEFT)
             this.player.move(Vector2.LEFT);
         } else if (cursors?.right.isDown) {
-            // move(Vector2.RIGHT)
             this.player.move(Vector2.RIGHT);
         } else if (cursors?.up.isDown) {
-            // move(Vector2.UP)
             this.player.move(Vector2.UP);
         } else if (cursors?.down.isDown) {
-            // move(Vector2.DOWN)
             this.player.move(Vector2.DOWN);
         }
 

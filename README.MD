@@ -16,7 +16,8 @@ Tilemaps are being created with tiled, sprite sheets and sprites are from source
 
 ### TODO:
 
-- Refactor player movement
-- Add collision
-- rewrite extrude.js logic to use extrude dir for spritesheets, create output dir for using with phaser
+- add menus
+- add dynamic zIndex (depth) based on position for top tiles
+- add other interactable npcs (moving npcs, interact action, speech for npcs)
+- add new tilemap and ability to enter new tilemap
 - clean up/refactor directories for assets
