@@ -8,7 +8,6 @@ export const constants = {
 export enum playerAnimationDelay {
     idle = 50,
     move = 250
-
 }
 
 export enum movementState {
@@ -16,3 +15,4 @@ export enum movementState {
     stepAnim1 = 0,
     stepAnim2 = 1
 }
+

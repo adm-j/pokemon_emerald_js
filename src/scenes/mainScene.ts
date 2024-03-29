@@ -9,6 +9,7 @@ import playerDown from "../assets/sprites/male_pc_down.png";
 import playerUp from "../assets/sprites/male_pc_up.png";
 import playerRight from "../assets/sprites/male_pc_right.png";
 import playerLeft from "../assets/sprites/male_pc_left.png";
+import {npc} from "../player/npc.ts";
 
 export class mainScene extends Phaser.Scene {
     constructor() {
@@ -17,6 +18,7 @@ export class mainScene extends Phaser.Scene {
 
     // @ts-ignore
     private player;
+    private npcGroup;
     private controller;
 
     preload() {
@@ -35,31 +37,42 @@ export class mainScene extends Phaser.Scene {
         const trees = map.createLayer("trees", tileset, 0, 0);
         const buildings = map.createLayer("buildings", tileset, 0, 0);
         const objects = map.createLayer("objects", tileset, 0, 0);
-        const collision = map.createLayer("collision", tileset, 0, 0);
+        const collision = map.createLayer("collision", tileset, 0, 0)!;
 
         ground?.setDepth(0);
         trees?.setDepth(1);
         objects?.setDepth(0);
         buildings?.setDepth(1);
         collision?.setDepth(-1);
-        collision.setCollisionByExclusion([0, 1])
+        collision?.setCollisionByExclusion([0, 1])
 
-        const pcSprite = this.add.sprite(0,0, "player_down", 0)
+        const pcSprite = this.add.sprite(0,0, "player_down", 0);
         pcSprite.setDepth(2);
         this.player = new player(this, pcSprite, collision, new Vector2(9, 12));
+
+        const testNpc = this.add.sprite(0, 0, "player_down", 0);
+        testNpc.setDepth(2);
+        this.npcGroup = new npc(this, testNpc, collision, new Vector2(12, 12));
         // this.controller = new Controller(this);
         // this.controller.AddKeyboardControls();
 
         this.cameras.main.startFollow(pcSprite);
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
+        // const overLapCallback = (player, npc) => {
+        //     console.log(player, npc);
+        //     // return undefined;
+        // }
 
-        this.physics.add.collider(this.player, collision);
+        // console.log(this.npcGroup);
+        // this.physics.add.collider(this.player, collision);
+        // this.physics.add.overlap(this.player, this.npcGroup, overLapCallback, undefined, this);
     }
 
     update() {
         const cursors = this.input.keyboard?.createCursorKeys();
         // this.player.checkForCollison();
+        // console.log(this.player.getCurrentGridPosition());
 
         if (cursors?.left.isDown) {
             this.player.move(Vector2.LEFT);
