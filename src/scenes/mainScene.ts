@@ -46,13 +46,17 @@ export class mainScene extends Phaser.Scene {
         collision?.setDepth(-1);
         collision?.setCollisionByExclusion([0, 1])
 
+        const npcTest = this.add.sprite(240, 240, "player_down", 0)
+        npcTest.setDepth(2);
+        npcTest.setOrigin(0, 1);
+        this.npcGroup = [npcTest];//todo: refactor, add function to return array of npcs
+
         const pcSprite = this.add.sprite(0,0, "player_down", 0);
         pcSprite.setDepth(2);
-        this.player = new player(this, pcSprite, collision, new Vector2(9, 12));
-
-        const testNpc = this.add.sprite(0, 0, "player_down", 0);
-        testNpc.setDepth(2);
-        this.npcGroup = new npc(this, testNpc, collision, new Vector2(12, 12));
+        this.player = new player(this, pcSprite, collision, new Vector2(9, 12), this.npcGroup);
+        // console.log(this.npcGroup);
+        // this.npcGroup[0].setDepth(2);
+        // this.npcGroup = new npc(this, testNpc, collision, new Vector2(12, 12));
         // this.controller = new Controller(this);
         // this.controller.AddKeyboardControls();
 

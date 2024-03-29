@@ -1,5 +1,5 @@
 import {getMapCoordinates, setMapCoordinates} from "../scripts/movement.ts";
-import {constants, movementState, playerAnimationDelay} from "../util/util.ts";
+import {movementState, playerAnimationDelay} from "../util/util.ts";
 import {setPlayerAnimations} from "../util/animations.ts";
 import Vector2 = Phaser.Math.Vector2;
 
@@ -13,7 +13,8 @@ export class player {
         private scene: Phaser.Scene,
         private sprite: Phaser.GameObjects.Sprite,
         private collisionLayer: Phaser.Tilemaps.TilemapLayer,
-        private tilePos: Phaser.Math.Vector2
+        private tilePos: Phaser.Math.Vector2,
+        private npcGroup?: Phaser.GameObjects.Sprite[]
     ) {
         this.sprite.setOrigin(0, 1);
         this.setGridPosition(new Vector2(this.tilePos));
@@ -38,10 +39,20 @@ export class player {
     private checkForCollison(direction: Vector2): { x: number; y: number } {
         const posX = this.sprite.x + (direction.x * 16);
         const posY = this.sprite.y + (direction.y * 16) - 16; //required to offset with the origin thats set
+
+        if (this.npcGroup) {
+            for (let i=0; i<this.npcGroup.length; i++) {
+                const npc = {x: this.npcGroup[i].x, y: this.npcGroup[i].y - 16};
+                console.log(posX, posY)
+                console.log(npc.x, npc.y)
+                if (posX - npc.x === 0 && posY - npc.y === 0) {
+                    return {x: this.sprite.x, y: this.sprite.y};
+                }
+            }
+        }
+
         const tile = this.collisionLayer.getTileAtWorldXY(posX, posY);
-        // console.log(posX, posY)
         if (tile && tile.canCollide) {
-            // console.log(tile.canCollide);
             return {x: this.sprite.x, y: this.sprite.y}
         } else {
             return {x: posX, y: posY + 16};
@@ -113,10 +124,6 @@ export class player {
         }
 
         const newPos = this.checkForCollison(direction);
-        const x = this.sprite.x + (direction.x * constants.tileHeight)
-        const y = this.sprite.y + (direction.x * constants.tileWidth)
-        // console.log(newPos);
-        // console.log(x, y);
 
         this.scene.tweens.add({
             targets: this.sprite,
