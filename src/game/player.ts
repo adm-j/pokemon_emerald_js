@@ -11,7 +11,7 @@ export class player {
 
     constructor(
         private scene: Phaser.Scene,
-        private sprite: Phaser.GameObjects.Sprite,
+        public sprite: Phaser.GameObjects.Sprite,
         private collisionLayer: Phaser.Tilemaps.TilemapLayer,
         private tilePos: Phaser.Math.Vector2,
         private npcGroup?: Phaser.GameObjects.Sprite[]
@@ -139,6 +139,10 @@ export class player {
                     this.animationDuration = playerAnimationDelay.move;
                 }
             }
-        })
+        });
+    }
+
+    public toggleMovement() {
+        this.isMoving = !this.isMoving;
     }
 }

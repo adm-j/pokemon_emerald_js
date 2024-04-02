@@ -14,13 +14,11 @@ const config: Phaser.Types.Core.GameConfig = {
     }
 }
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-  </div>
-`
+// document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+//   <div>
+//   </div>
+// `
 
-
-// @ts-ignore
 const game = new Phaser.Game(config);
 
 const gameCanvas = document.querySelector<HTMLCanvasElement>("canvas")!;

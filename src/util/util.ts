@@ -16,3 +16,11 @@ export enum movementState {
     stepAnim2 = 1
 }
 
+export const placeholderText = () => {
+    let retValue = "";
+    for (let i = 0; i < 10; i++) {
+            retValue += "hello ";
+    }
+    console.log(retValue.length);
+    return retValue;
+}

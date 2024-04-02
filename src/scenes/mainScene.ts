@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
-import {player} from "../player/player.ts";
+import {player} from "../game/player.ts";
+import {TextBox} from "../game/TextBox.ts"
 import {Controller} from "../util/controller.ts"
 
 import internalTiles from "../assets/tileset/emerald_tileset.png"
@@ -9,7 +10,7 @@ import playerDown from "../assets/sprites/male_pc_down.png";
 import playerUp from "../assets/sprites/male_pc_up.png";
 import playerRight from "../assets/sprites/male_pc_right.png";
 import playerLeft from "../assets/sprites/male_pc_left.png";
-import {npc} from "../player/npc.ts";
+import {npc} from "../game/npc.ts";
 
 export class mainScene extends Phaser.Scene {
     constructor() {
@@ -63,10 +64,9 @@ export class mainScene extends Phaser.Scene {
         this.cameras.main.startFollow(pcSprite);
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
-        // const overLapCallback = (player, npc) => {
-        //     console.log(player, npc);
-        //     // return undefined;
-        // }
+
+        const text: TextBox = new TextBox(this, this.player);
+        text.create();
 
         // console.log(this.npcGroup);
         // this.physics.add.collider(this.player, collision);
