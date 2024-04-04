@@ -14,10 +14,26 @@ to prevent rendering issues when used for tilemaps.
 Tilemaps are being created with tiled, sprite sheets and sprites are from sources (todo: include sources)
 
 
-### TODO:
+### Current Progress:
 
-- add menus
-- add dynamic zIndex (depth) based on position for top tiles
-- add other interactable npcs (moving npcs, interact action, speech for npcs)
-- add new tilemap and ability to enter new tilemap
-- clean up/refactor directories for assets
+Note this is not an indepth look at progression but more of a summary.
+
+- Movement
+  - ~~grid based movement~~
+  - ~~collision~~
+  - transitioning from one scene to another
+- Battle system
+  - create logic for stats and calculating damage
+  - menus
+  - animations
+  - scene transition
+- Inventory
+  - menus
+  - item functionalities
+- Party system
+  - menu
+  - view party members screens
+- Npc events/interactions
+  - ~~Chat box~~
+  - Scrolling text system
+  - Custom events
