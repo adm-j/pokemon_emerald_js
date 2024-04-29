@@ -68,19 +68,20 @@ export class player {
     }
 
     private walkingAnimation(direction: Vector2): Vector2 {
+        const animName: string = this.name.split("_")[0]; //parse names to ensure fetching correct animation name
         const characterDirection = getVectorDirectionAsString(direction);
         if (this.currentFacePosition !== direction) {
             this.currentFacePosition = direction;
-            this.sprite.anims.play(`face_${characterDirection}`);
+            this.sprite.anims.play(`${animName}_face_${characterDirection}`);
 
             this.stepCount = MovementState.stepAnim1;
             this.animationDuration = PlayerAnimationDelay.idle;
             direction = Vector2.ZERO;
         } else if (this.stepCount === MovementState.stepAnim1) {
-            this.sprite.anims.play(`walk_${characterDirection}_1`)
+            this.sprite.anims.play(`${animName}_walk_${characterDirection}_1`)
             this.stepCount = MovementState.stepAnim2;
         } else if (this.stepCount === MovementState.stepAnim2) {
-            this.sprite.anims.play(`walk_${characterDirection}_2`)
+            this.sprite.anims.play(`${animName}_walk_${characterDirection}_2`)
             this.stepCount = MovementState.stepAnim1;
         }
         return direction;
