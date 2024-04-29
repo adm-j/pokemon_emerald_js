@@ -1,25 +1,29 @@
 import {getMapCoordinates, setMapCoordinates} from "../scripts/movement.ts";
-import {movementState, playerAnimationDelay} from "../util/util.ts";
+import {MovementState, PlayerAnimationDelay} from "./Enums.ts";
 import {setPlayerAnimations} from "../util/animations.ts";
+import {GameState} from "../main.ts";
 import Vector2 = Phaser.Math.Vector2;
+import {getVectorDirectionAsString} from "../util/util.ts";
 
 export class player {
     private isMoving: boolean = false;
-    private stepCount: movementState = movementState.stepAnim1;
+    private stepCount: MovementState = MovementState.stepAnim1;
     private currentFacePosition: Vector2 = Vector2.DOWN;
-    private animationDuration: playerAnimationDelay = playerAnimationDelay.move;
+    private animationDuration: PlayerAnimationDelay = PlayerAnimationDelay.move;
+    private name: string = "player";
 
     constructor(
-        private scene: Phaser.Scene,
+        private tween: Phaser.Tweens.TweenManager,
         public sprite: Phaser.GameObjects.Sprite,
         private collisionLayer: Phaser.Tilemaps.TilemapLayer,
         private tilePos: Phaser.Math.Vector2,
-        private npcGroup?: Phaser.GameObjects.Sprite[]
+        // private npcGroup?: Phaser.GameObjects.Sprite[]
     ) {
         this.sprite.setOrigin(0, 1);
+        this.sprite.setDepth(3);
         this.setGridPosition(new Vector2(this.tilePos));
         setPlayerAnimations(this.sprite.anims);
-        // this.scene.physics.add.collider(this.sprite, collisionLayer);
+        GameState.setPlayerGridPosition(tilePos)
     }
 
     public setGridPosition(pos: Phaser.Math.Vector2): void {
@@ -27,27 +31,31 @@ export class player {
         this.sprite.setPosition(res.x, res.y);
     }
 
-    public getGridPosition(x: number, y: number): {x: number, y: number} {
+    public getGridPosition(x: number, y: number): { x: number, y: number } {
         return getMapCoordinates(x, y);
     }
 
-    public getCurrentGridPosition(): {x: number, y: number} {
+    public getCurrentGridPosition(): { x: number, y: number } {
         const curPos = this.sprite.getBottomCenter();
         return getMapCoordinates(curPos.x, curPos.y);
     }
 
     private checkForCollison(direction: Vector2): { x: number; y: number } {
+
+
         const posX = this.sprite.x + (direction.x * 16);
         const posY = this.sprite.y + (direction.y * 16) - 16; //required to offset with the origin thats set
+        const grid = this.getCurrentGridPosition();
 
-        if (this.npcGroup) {
-            for (let i=0; i<this.npcGroup.length; i++) {
-                const npc = {x: this.npcGroup[i].x, y: this.npcGroup[i].y - 16};
-                console.log(posX, posY)
-                console.log(npc.x, npc.y)
-                if (posX - npc.x === 0 && posY - npc.y === 0) {
-                    return {x: this.sprite.x, y: this.sprite.y};
-                }
+        const npcPositions = GameState.getGridPositions();
+
+        for (let i = 0; i < npcPositions.length; i++) {
+            const npc = npcPositions[i];
+            const npcPosX = grid.x + direction.x;
+            const npcPosY = grid.y + direction.y;
+
+            if (npcPosX - npc.x === 0 && npcPosY - npc.y === 0) {
+                return {x: this.sprite.x, y: this.sprite.y};
             }
         }
 
@@ -59,85 +67,46 @@ export class player {
         }
     }
 
+    private walkingAnimation(direction: Vector2): Vector2 {
+        const characterDirection = getVectorDirectionAsString(direction);
+        if (this.currentFacePosition !== direction) {
+            this.currentFacePosition = direction;
+            this.sprite.anims.play(`face_${characterDirection}`);
+
+            this.stepCount = MovementState.stepAnim1;
+            this.animationDuration = PlayerAnimationDelay.idle;
+            direction = Vector2.ZERO;
+        } else if (this.stepCount === MovementState.stepAnim1) {
+            this.sprite.anims.play(`walk_${characterDirection}_1`)
+            this.stepCount = MovementState.stepAnim2;
+        } else if (this.stepCount === MovementState.stepAnim2) {
+            this.sprite.anims.play(`walk_${characterDirection}_2`)
+            this.stepCount = MovementState.stepAnim1;
+        }
+        return direction;
+    }
+
     public move(direction: Vector2): void {
         if (this.isMoving) {
             return;
         }
         this.isMoving = true
 
-        if (direction === Vector2.DOWN) {
-            if (this.currentFacePosition !== Vector2.DOWN) {
-                this.sprite.anims.play("face_down");
-                this.stepCount = movementState.stepAnim1;
-                this.currentFacePosition = Vector2.DOWN;
-                direction = Vector2.ZERO;
-                this.animationDuration = playerAnimationDelay.idle;
-            } else if (this.stepCount === movementState.stepAnim1) {
-                this.sprite.anims.play("walk_down_1")
-                this.stepCount = movementState.stepAnim2;
-            } else {
-                this.sprite.anims.play("walk_down_2")
-                this.stepCount = movementState.stepAnim1;
-            }
-        } else if (direction === Vector2.UP) {
-            if (this.currentFacePosition !== Vector2.UP) {
-                this.sprite.anims.play("face_up");
-                this.stepCount = movementState.stepAnim1;
-                this.currentFacePosition = Vector2.UP;
-                direction = Vector2.ZERO;
-                this.animationDuration = playerAnimationDelay.idle;
-            } else if (this.stepCount === movementState.stepAnim1) {
-                this.sprite.anims.play("walk_up_1")
-                this.stepCount = movementState.stepAnim2;
-            } else {
-                this.sprite.anims.play("walk_up_2")
-                this.stepCount = movementState.stepAnim1;
-            }
-        } else if (direction === Vector2.LEFT) {
-            if (this.currentFacePosition !== Vector2.LEFT) {
-                this.sprite.anims.play("face_left");
-                this.stepCount = movementState.stepAnim1;
-                this.currentFacePosition = Vector2.LEFT;
-                direction = Vector2.ZERO;
-                this.animationDuration = playerAnimationDelay.idle;
-            } else if (this.stepCount === movementState.stepAnim1) {
-                this.sprite.anims.play("walk_left_1")
-                this.stepCount = movementState.stepAnim2;
-            } else {
-                this.sprite.anims.play("walk_left_2")
-                this.stepCount = movementState.stepAnim1;
-            }
-        } else if (direction === Vector2.RIGHT) {
-            if (this.currentFacePosition !== Vector2.RIGHT) {
-                this.sprite.anims.play("face_right");
-                this.stepCount = movementState.stepAnim1;
-                this.currentFacePosition = Vector2.RIGHT;
-                direction = Vector2.ZERO;
-                this.animationDuration = playerAnimationDelay.idle;
-            } else if (this.stepCount === movementState.stepAnim1) {
-                this.sprite.anims.play("walk_right_1")
-                this.stepCount = movementState.stepAnim2;
-            } else {
-                this.sprite.anims.play("walk_right_2")
-                this.stepCount = movementState.stepAnim1;
-            }
-        }
-
+        direction = this.walkingAnimation(direction);
         const newPos = this.checkForCollison(direction);
 
-        this.scene.tweens.add({
+        this.tween.add({
             targets: this.sprite,
             x: newPos.x,
             y: newPos.y,
-            // x: this.sprite.x + (direction.x * constants.tileHeight),
-            // y: this.sprite.y + (direction.y * constants.tileWidth),
             duration: this.animationDuration,
             ease: "linear",
             onComplete: () => {
                 this.isMoving = false;
-                if (this.animationDuration !== playerAnimationDelay.move) {
-                    this.animationDuration = playerAnimationDelay.move;
+                if (this.animationDuration !== PlayerAnimationDelay.move) {
+                    this.animationDuration = PlayerAnimationDelay.move;
                 }
+                GameState.setGridPosition(this.name, this.getCurrentGridPosition());
             }
         });
     }

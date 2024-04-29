@@ -1,14 +1,15 @@
 import './style.css'
 
 import Phaser from "phaser";
-import {mainScene} from "./scenes/mainScene.ts";
 import {constants} from "./util/util.ts";
+import {SceneLoader} from "./game/SceneLoader.ts";
+import {State} from "./game/State.ts";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: constants.canvasWidth,
     height: constants.canvasHeight,
-    scene: mainScene,
+    scene: SceneLoader,
     physics: {
         default: "arcade"
     }
@@ -20,6 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
 // `
 
 const game = new Phaser.Game(config);
+export const GameState = new State();
 
 const gameCanvas = document.querySelector<HTMLCanvasElement>("canvas")!;
 gameCanvas.style.top = "0";

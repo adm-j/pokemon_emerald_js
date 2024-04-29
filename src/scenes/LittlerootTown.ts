@@ -11,16 +11,20 @@ import playerUp from "../assets/sprites/male_pc_up.png";
 import playerRight from "../assets/sprites/male_pc_right.png";
 import playerLeft from "../assets/sprites/male_pc_left.png";
 import {npc} from "../game/npc.ts";
+import {SceneName} from "../game/Enums.ts";
+import {GameState} from "../main.ts";
+import {randomVector} from "../util/util.ts";
 
-export class mainScene extends Phaser.Scene {
+export class LittlerootTown extends Phaser.Scene {
     constructor() {
-        super("mainScene");
+        super(SceneName.littleRootTown);
     }
 
     // @ts-ignore
     private player;
     private npcGroup;
     private controller;
+    private events;
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -47,36 +51,48 @@ export class mainScene extends Phaser.Scene {
         collision?.setDepth(-1);
         collision?.setCollisionByExclusion([0, 1])
 
-        const npcTest = this.add.sprite(240, 240, "player_down", 0)
-        npcTest.setDepth(2);
-        npcTest.setOrigin(0, 1);
-        this.npcGroup = [npcTest];//todo: refactor, add function to return array of npcs
+        // const npcTest = this.add.sprite(240, 240, "player_down", 0)
+        // this.npcGroup = [npcTest];//todo: refactor, add function to return array of npcs
 
         const pcSprite = this.add.sprite(0,0, "player_down", 0);
-        pcSprite.setDepth(2);
-        this.player = new player(this, pcSprite, collision, new Vector2(9, 12), this.npcGroup);
-        // console.log(this.npcGroup);
-        // this.npcGroup[0].setDepth(2);
-        // this.npcGroup = new npc(this, testNpc, collision, new Vector2(12, 12));
-        // this.controller = new Controller(this);
-        // this.controller.AddKeyboardControls();
+        const pcCopy = this.add.sprite(200, 200, "player_down", 0);
+        const pcCopy2 = this.add.sprite(0, 0, "player_down", 0);
+
+        const playerCharacter = new player(this.tweens, pcSprite, collision, new Vector2(9, 12));
+        const npcTest = [
+            new npc(this.tweens, pcCopy, collision, new Vector2(14, 12), "npc1"),
+            new npc(this.tweens, pcCopy2, collision, new Vector2(16, 12), "npc2")
+        ];
+
+        this.player = playerCharacter;
+        this.npcGroup = npcTest;
+
+
+        this.events = this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                for (let i =0; i<this.npcGroup.length; i++) {
+                    const randomMS = Math.floor(Math.random() * 1000);
+                    setTimeout(()=> {
+                    this.npcGroup[i].wander(randomVector());
+                    }, randomMS);
+                }
+            },
+            loop: true,
+            callbackScope: this,
+        })
 
         this.cameras.main.startFollow(pcSprite);
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
 
         const text: TextBox = new TextBox(this, this.player);
-        text.create();
-
-        // console.log(this.npcGroup);
-        // this.physics.add.collider(this.player, collision);
-        // this.physics.add.overlap(this.player, this.npcGroup, overLapCallback, undefined, this);
+        console.log(GameState.Game.NpcGridPositions);
+        // text.create();
     }
 
     update() {
         const cursors = this.input.keyboard?.createCursorKeys();
-        // this.player.checkForCollison();
-        // console.log(this.player.getCurrentGridPosition());
 
         if (cursors?.left.isDown) {
             this.player.move(Vector2.LEFT);
