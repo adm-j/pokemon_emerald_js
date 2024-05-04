@@ -6,7 +6,7 @@ import Vector2 = Phaser.Math.Vector2;
 import {getVectorDirectionAsString} from "../util/util.ts";
 
 export class player {
-    private isMoving: boolean = false;
+    public isMoving: boolean = false;
     private stepCount: MovementState = MovementState.stepAnim1;
     private currentFacePosition: Vector2 = Vector2.DOWN;
     private animationDuration: PlayerAnimationDelay = PlayerAnimationDelay.move;
@@ -23,7 +23,9 @@ export class player {
         this.sprite.setDepth(3);
         this.setGridPosition(new Vector2(this.tilePos));
         setPlayerAnimations(this.sprite.anims);
-        GameState.setPlayerGridPosition(tilePos)
+        // GameState.setPlayerGridPosition(tilePos)
+        GameState.setGridPosition(this.name, new Vector2(tilePos));
+
     }
 
     public setGridPosition(pos: Phaser.Math.Vector2): void {
@@ -72,7 +74,7 @@ export class player {
         const characterDirection = getVectorDirectionAsString(direction);
         if (this.currentFacePosition !== direction) {
             this.currentFacePosition = direction;
-            this.sprite.anims.play(`${animName}_face_${characterDirection}`);
+            this.sprite.anims?.play(`${animName}_face_${characterDirection}`);
 
             this.stepCount = MovementState.stepAnim1;
             this.animationDuration = PlayerAnimationDelay.idle;

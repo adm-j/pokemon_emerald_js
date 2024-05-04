@@ -1,3 +1,4 @@
+import {SceneName} from "./Enums.ts";
 
 export class State {
     constructor() {
@@ -5,7 +6,7 @@ export class State {
     }
 
     public Game = {
-        playerCurrentScene: "",
+        playerCurrentScene: SceneName.littleRootTown,
         playerPreviousScene: "",
         NpcGridPositions: {},
         PlayerGridPosition: {x: 0, y: 0},

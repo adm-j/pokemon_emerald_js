@@ -12,9 +12,18 @@ export enum MovementState {
 export enum SceneName {
     debug = "Debug",
     menu = "Menu",
+    pausemenu = "PauseMenu",
     littleRootTown = "Littleroottown",
+    route101 = "Route101"
 }
 
 export enum MovementAnimations {
 
+}
+
+export enum PauseMenuOptions {
+    pokemon = 0,
+    bag = 1,
+    option = 2,
+    exit = 3
 }
