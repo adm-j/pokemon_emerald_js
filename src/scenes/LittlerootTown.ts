@@ -17,7 +17,9 @@ import girlUp from "../assets/sprites/npc/girl/girl_up.png";
 import {npc} from "../game/npc.ts";
 import {SceneName} from "../game/Enums.ts";
 import {randomVector} from "../util/util.ts";
-import {GameState} from "../main.ts";
+import {GameState, touch} from "../main.ts";
+
+import {TouchControls} from "../game/TouchControls.ts";
 
 export class LittlerootTown extends Phaser.Scene {
     constructor() {
@@ -26,7 +28,7 @@ export class LittlerootTown extends Phaser.Scene {
 
     private player! : player;
     private npcGroup! : npc[];
-    private keyboard;
+    private touchControls: TouchControls | undefined;
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -60,8 +62,9 @@ export class LittlerootTown extends Phaser.Scene {
         collision?.setDepth(-1);
         collision?.setCollisionByExclusion([0, 1])
 
-        const getPlayerPos = () => {
+        const getPlayerPos = () => {    // todo: implement this in a more modular way
             if (GameState.Game.playerPreviousScene === SceneName.route101) {
+                // @ts-ignore
                 return new Vector2(GameState.Game.NpcGridPositions.player.x, 7);
             } else {
                 return new Vector2(15, 18);
@@ -102,14 +105,8 @@ export class LittlerootTown extends Phaser.Scene {
 
         this.scene.run(SceneName.debug);
 
-        // this.keyboard = {
-        //     up: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-        //     down: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-        //     left: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-        //     right: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-        //     space: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-        //     esc: this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ESC),
-        // }
+        // this.touchControls = new TouchControls();
+        // this.touchControls.initialise();
     }
 
     update() {
@@ -137,6 +134,12 @@ export class LittlerootTown extends Phaser.Scene {
             this.scene.pause(SceneName.littleRootTown);
             this.scene.run(SceneName.pausemenu);
         }
+
+        if (touch.holdingTouch && touch.currentDirection) {
+            this.player.move(touch.currentDirection);
+        }
+
+
 
         // if (this.player.getCurrentGridPosition())
 

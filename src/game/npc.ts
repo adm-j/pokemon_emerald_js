@@ -8,7 +8,7 @@ import {GameState} from "../main.ts";
 export class npc extends player {
     constructor(
         tween: Phaser.Tweens.TweenManager,
-        private sprite: Phaser.GameObjects.Sprite,
+        public sprite: Phaser.GameObjects.Sprite,
         collisionLayer: Phaser.Tilemaps.TilemapLayer,
         tilePos: Phaser.Math.Vector2,
         private name: string,

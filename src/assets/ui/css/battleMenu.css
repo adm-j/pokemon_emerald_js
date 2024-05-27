@@ -1,0 +1,28 @@
+#battleMenu_container {
+    position: absolute;
+    background: white;
+    bottom: 10px;
+    right: 0;
+    border-radius: 10px;
+    /*border-style: solid;*/
+    border-width: 1px;
+    border-color: gray;
+    margin: 5px;
+    color: black;
+    height: 250px;
+    /*font-size: 40px;*/
+}
+
+.battleMenu_option {
+    display: flex;
+    justify-content: center;
+    height: 120px;
+    width: 200px;
+}
+
+.battleMenu_attack_option {
+    display: flex;
+    justify-content: center;
+    height: 120px;
+    /*width: 200px;*/
+}

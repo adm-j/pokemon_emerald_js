@@ -1,0 +1,50 @@
+#attackMenu_container {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    /*background: red;*/
+    height: 250px;
+    width: 100%;
+    color: black;
+}
+
+#attackMenu_attackOptions {
+    /*width: 100%;*/
+    min-width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    /*border-style: solid;*/
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: gray;
+    margin: 5px;
+}
+
+#attackMenu_display {
+    width: 720px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    /*border-style: solid;*/
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: gray;
+    background: white;
+    color: red;
+}
+
+@media screen and (max-width: 768px) {
+    #attackMenu_container {
+        /*left: 50%;*/
+    }
+
+    #attackMenu_display {
+        display: none;
+    }
+}

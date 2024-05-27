@@ -8,7 +8,7 @@ import playerDown from "../assets/sprites/player/male_pc_down.png";
 import playerRight from "../assets/sprites/player/male_pc_right.png";
 import playerLeft from "../assets/sprites/player/male_pc_left.png";
 import Vector2 = Phaser.Math.Vector2;
-import {GameState} from "../main.ts";
+import {GameState, touch} from "../main.ts";
 
 export class Route101 extends Phaser.Scene {
     constructor() {
@@ -79,6 +79,10 @@ export class Route101 extends Phaser.Scene {
         } else if (cursors?.space.isDown) {
             this.scene.pause(SceneName.route101);
             this.scene.run(SceneName.pausemenu);
+        }
+
+        if (touch.holdingTouch && touch.currentDirection) {
+            this.player.move(touch.currentDirection);
         }
     }
 }

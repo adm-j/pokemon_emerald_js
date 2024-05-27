@@ -1,0 +1,24 @@
+#dialog_container {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    height: 250px;
+    width: 100%;
+}
+
+#dialog_box {
+    border-radius: 25px;
+    border-style: solid;
+    height: 85%;
+    width: 95%;
+    background: blue;
+}
+
+.dialog_text {
+    margin-left: 20px;
+    flex-wrap: wrap;
+}

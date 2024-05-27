@@ -1,4 +1,5 @@
 import {SceneName} from "./Enums.ts";
+import {Pokemon} from "./pokemon.ts";
 
 export class State {
     constructor() {
@@ -6,6 +7,7 @@ export class State {
     }
 
     public Game = {
+        playerParty: [new Pokemon(1, 5)],
         playerCurrentScene: SceneName.littleRootTown,
         playerPreviousScene: "",
         NpcGridPositions: {},
