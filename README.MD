@@ -22,9 +22,9 @@ Note this is not an indepth look at progression but more of a summary.
 - Movement
   - ~~grid based movement~~
   - ~~collision~~
-  - transitioning from one scene to another
+  - ~~transitioning from one scene to another~~
 - Battle system
-  - create logic for stats and calculating damage
+  - ~~create logic for stats and calculating damage~~
   - menus
   - animations
   - scene transition
@@ -38,3 +38,7 @@ Note this is not an indepth look at progression but more of a summary.
   - ~~Chat box~~
   - Scrolling text system
   - Custom events
+
+### Credit:
+
+This project is using a number of community made tilemaps and sprites. Sorry I haven't listened them yet!
