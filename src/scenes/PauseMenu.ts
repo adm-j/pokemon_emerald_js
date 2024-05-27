@@ -1,11 +1,10 @@
 import {SceneName} from "../game/Enums.ts";
-import {constants} from "../util/util.ts";
 
 export class PauseMenu extends Phaser.Scene {
 
-    private menuState;
-    private menuOptions;
-    private pointer;
+    // private menuState;
+    // private menuOptions;
+    private pointer: Phaser.GameObjects.Triangle | undefined;
 
     constructor() {
         super(SceneName.pausemenu);
@@ -50,21 +49,17 @@ export class PauseMenu extends Phaser.Scene {
 
     }
 
-    private next = () => {
-
-    }
-
-    private previous = () => {
-
-    }
+    // private next = () => {
+    //
+    // }
+    //
+    // private previous = () => {
+    //
+    // }
 
     update(): void {
         const cursors = this.input.keyboard?.createCursorKeys();
-        if (cursors?.down.isDown) {
-            this.pointer.y += 1;
-        } else if (cursors?.up.isDown) {
-
-        } else if (cursors?.space.isDown) {
+        if (cursors?.space.isDown) {
             this.scene.stop(SceneName.pausemenu);
             this.scene.resume(SceneName.littleRootTown);
         }

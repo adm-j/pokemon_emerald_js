@@ -5,7 +5,8 @@ import {getAnimations} from "../util/animations.ts";
 import {GameState} from "../main.ts";
 
 
-export class npc extends player {
+// @ts-ignore
+export class Npc extends player {
     constructor(
         tween: Phaser.Tweens.TweenManager,
         public sprite: Phaser.GameObjects.Sprite,

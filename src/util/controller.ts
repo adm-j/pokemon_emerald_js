@@ -14,13 +14,6 @@ export class Controller {
         }); //todo: test this
     }
 
-    public addGamepadControls() : void {
-        this.context.input.gamepad?.once("connected", (e)=> {
-            e.index;
-            //todo: Test this
-        })
-    }
-
     public addMobileControls() : void {
         //todo: Add mobile UI
     }

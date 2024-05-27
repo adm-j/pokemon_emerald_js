@@ -17,6 +17,7 @@ export class DebugScene extends Phaser.Scene {
             fontSize: "60px",
         }
 
+        // @ts-ignore
         const string = `x:${this.gridPos.player.x || "n/a"} y:${this.gridPos.player.y || "n/a"}`
 
         this.debugText = this.add.text(0, 0, string, textConfig);
@@ -25,6 +26,7 @@ export class DebugScene extends Phaser.Scene {
     }
 
     update() {
+        // @ts-ignore
         this.debugText?.setText(`x:${this.gridPos.player.x || "n/a"} y:${this.gridPos.player.y || "n/a"}`);
     }
 }

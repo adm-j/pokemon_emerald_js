@@ -1,9 +1,9 @@
 import {SceneName} from "../game/Enums.ts";
-import {GameState} from "../main.ts";
+// import {GameState} from "../main.ts";
 
 import mudkipPlayer from "../assets/sprites/pokemon/mudkip_back.png"
 import torchicEnemy from "../assets/sprites/pokemon/torchic_front.png";
-import dialog from "../assets/ui/html/dialog.html?raw";
+// import dialog from "../assets/ui/html/dialog.html?raw";
 import battleMenu from "../assets/ui/html/battleMenu.html?raw";
 import attackMenu from "../assets/ui/html/attackMenu.html?raw";
 import hpHud from "../assets/ui/html/hpHud.html?raw";
@@ -12,24 +12,24 @@ import {parseLine} from "../util/util.ts";
 
 export class Battle extends Phaser.Scene {
 
-    private friendlyParty;
-    private enemyParty;
-    private isWild: boolean | undefined;
+    // private friendlyParty;
+    // private enemyParty;
+    // private isWild: boolean | undefined;
 
     constructor() {
         super(SceneName.battle);
     }
 
-    private updatePositions(): void {
-        const newPlayerPos = window.innerWidth / 3;
-        const newEnemyPos = window.innerWidth - (window.innerWidth / 3);
-    }
+    // private updatePositions(): void {
+    //     const newPlayerPos = window.innerWidth / 3;
+    //     const newEnemyPos = window.innerWidth - (window.innerWidth / 3);
+    // }
 
     preload(): void {
         // hardcoded for now
-        this.friendlyParty = GameState.Game.playerParty;
-        this.enemyParty = [];
-        this.isWild = true;
+        // this.friendlyParty = GameState.Game.playerParty;
+        // this.enemyParty = [];
+        // this.isWild = true;
 
         this.load.image("mudkip", mudkipPlayer);
         this.load.image("torchic", torchicEnemy);

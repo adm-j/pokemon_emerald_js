@@ -1,11 +1,11 @@
 
 export class Pokemon {
 
-    private data;
+    // private data;
 
     constructor(
-        pokemonNo: number,
-        level: number,
+        // pokemonNo: number,
+        // level: number,
     ) {
     }
 }

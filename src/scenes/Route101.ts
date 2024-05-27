@@ -1,7 +1,6 @@
 import internalTiles from "../assets/tileset/emerald_tileset.png"
 import route101 from "../assets/tilemap/route101.json";
 import {SceneName} from "../game/Enums.ts";
-import {npc} from "../game/npc.ts";
 import {player} from "../game/player.ts";
 import playerUp from "../assets/sprites/player/male_pc_up.png";
 import playerDown from "../assets/sprites/player/male_pc_down.png";
@@ -43,6 +42,7 @@ export class Route101 extends Phaser.Scene {
         collision?.setDepth(-1);
         collision?.setCollisionByExclusion([0, 1])
 
+        // @ts-ignore
         const playerPos = GameState.Game.NpcGridPositions.player;
 
         const pcSprite = this.add.sprite(0,0, "player_up", 0);

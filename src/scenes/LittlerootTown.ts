@@ -14,12 +14,11 @@ import girlLeft from "../assets/sprites/npc/girl/girl_left.png";
 import girlRight from "../assets/sprites/npc/girl/girl_right.png";
 import girlUp from "../assets/sprites/npc/girl/girl_up.png";
 
-import {npc} from "../game/npc.ts";
+import {Npc} from "../game/Npc.ts";
 import {SceneName} from "../game/Enums.ts";
 import {randomVector} from "../util/util.ts";
 import {GameState, touch} from "../main.ts";
 
-import {TouchControls} from "../game/TouchControls.ts";
 
 export class LittlerootTown extends Phaser.Scene {
     constructor() {
@@ -27,8 +26,7 @@ export class LittlerootTown extends Phaser.Scene {
     }
 
     private player! : player;
-    private npcGroup! : npc[];
-    private touchControls: TouchControls | undefined;
+    private npcGroup! : Npc[];
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -76,9 +74,9 @@ export class LittlerootTown extends Phaser.Scene {
         const girl2 = this.add.sprite(0, 0, "girl_up", 0);
 
         const playerCharacter = new player(this.tweens, pcSprite, collision, getPlayerPos());
-        const npcTest: npc[] = [
-            new npc(this.tweens, girl, collision, new Vector2(17, 20), "girl_1"),
-            new npc(this.tweens, girl2, collision, new Vector2(19, 20), "girl_2"),
+        const npcTest: Npc[] = [
+            new Npc(this.tweens, girl, collision, new Vector2(17, 20), "girl_1"),
+            new Npc(this.tweens, girl2, collision, new Vector2(19, 20), "girl_2"),
         ];
 
         this.player = playerCharacter;
@@ -104,9 +102,6 @@ export class LittlerootTown extends Phaser.Scene {
         this.cameras.main.roundPixels = true;
 
         this.scene.run(SceneName.debug);
-
-        // this.touchControls = new TouchControls();
-        // this.touchControls.initialise();
     }
 
     update() {
@@ -138,11 +133,5 @@ export class LittlerootTown extends Phaser.Scene {
         if (touch.holdingTouch && touch.currentDirection) {
             this.player.move(touch.currentDirection);
         }
-
-
-
-        // if (this.player.getCurrentGridPosition())
-
-
     }
 }
