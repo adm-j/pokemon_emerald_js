@@ -9,10 +9,10 @@ import {Battle} from "../scenes/Battle.ts";
  * Array of all scenes. Place scenes in here to be loaded by Phaser.
  */
 export const SceneLoader: Class[] = [
-    LittlerootTown,
     Menu,
+    LittlerootTown,
+    Route101,
     Battle,
     PauseMenu,
-    Route101,
     DebugScene
 ]

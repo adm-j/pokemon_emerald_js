@@ -1,7 +1,8 @@
 # POKEMON EMERALD JS
 
-This is a recreation of pokemon Emerald and its various mechanics using Phaser 3, Vite and nodejs.
-The purpose of this is to learn more about games programming.
+This is a recreation of the game mechanics found in pokemon Emerald using Phaser 3, Vite and nodejs.
+The purpose of this is for me to learn more about game programming, thus this will not be a 
+complete remake or anything of that nature.
 
 ## Project setup
 
@@ -17,7 +18,7 @@ Tilemaps are being created with tiled, sprite sheets and sprites are from variou
 
 ### Current Progress:
 
-Note this is not an indepth look at progression but more of a summary.
+Note this is not an indepth look at progression but more of a basic summary of things I'm working on. More may be added later.
 
 - Movement
   - ~~grid based movement~~
