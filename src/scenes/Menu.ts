@@ -13,7 +13,6 @@ export class Menu extends Phaser.Scene {
     };
 
     create(): void {
-
         display.innerHTML = menu;
 
         const changeScreen = () => {
