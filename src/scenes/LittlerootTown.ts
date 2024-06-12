@@ -102,6 +102,7 @@ export class LittlerootTown extends Phaser.Scene {
         this.cameras.main.roundPixels = true;
 
         this.scene.run(SceneName.debug);
+        touch.enable();
     }
 
     update() {

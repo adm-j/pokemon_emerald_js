@@ -1,0 +1,43 @@
+#mainMenu {
+    background-image: url("src/assets/maps/menu/emeraldMainMenuBackground.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.segment {
+    height: 33%;
+    width: 100%;
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+#mainMenu_top {
+    font-size: 50px;
+}
+
+#mainMenu_middle {
+
+}
+
+#mainMenu_bottom {
+    font-size: 30px;
+    animation: fadeInOut 1.5s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

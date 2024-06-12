@@ -1,0 +1,19 @@
+#dpad {
+    /*background: red;*/
+    height: 150px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dpad_spacing {
+    height: 33%;
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dpad_chevron {
+}

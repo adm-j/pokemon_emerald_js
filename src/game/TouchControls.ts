@@ -1,10 +1,13 @@
 import overworldTouchUI from "../assets/ui/html/overworldTouchUi.html?raw";
+import "../assets/ui/css/dpad.css";
+import dpad from "../assets/ui/html/dpad.html?raw";
 import Vector2 = Phaser.Math.Vector2;
+import {controls} from "../main.ts";
 
 export class TouchControls {
 
     constructor() {
-        this.enable();
+        this.initialise();
     }
 
     private left: Element | null = null;
@@ -15,57 +18,78 @@ export class TouchControls {
     public currentDirection: Vector2 | null = null;
     public holdingTouch: boolean = false;
 
-    public initialise () {
+    private initialise () {
+        controls.innerHTML = overworldTouchUI;
 
-        this.left = document.querySelector("#overworldTouchUi_left")!;
-        this.top = document.querySelector("#overworldTouchUi_top")!;
-        this.bottom = document.querySelector("#overworldTouchUi_bottom")!;
-        this.right = document.querySelector("#overworldTouchUi_right")!;
+        const bottomLeft = document.querySelector("#overworldTouchUi_bottom_left")!;
+        bottomLeft.innerHTML = dpad;
 
-        this.left.addEventListener("touchstart", () => {
+        this.left = document.querySelector("#dpad_middle_left")!;
+        this.top = document.querySelector("#dpad_top_middle")!;
+        this.bottom = document.querySelector("#dpad_bottom_middle")!;
+        this.right = document.querySelector("#dpad_middle_right")!;
+
+        this.left.addEventListener("touchstart", (e) => {
+            e.preventDefault();
             this.currentDirection = Vector2.LEFT;
             this.holdingTouch = true;
         })
-        this.left.addEventListener("touchend", () => {
+        this.left.addEventListener("touchend", (e) => {
+            e.preventDefault();
             this.currentDirection = null;
             this.holdingTouch = false;
         })
-        this.right.addEventListener("touchstart", () => {
+        this.left.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+        })
+        this.right.addEventListener("touchstart", (e) => {
+            e.preventDefault();
             this.currentDirection = Vector2.RIGHT;
             this.holdingTouch = true;
-            // this.movePlayer();
         })
-        this.right.addEventListener("touchend", () => {
+        this.right.addEventListener("touchend", (e) => {
+            e.preventDefault();
             this.currentDirection = null;
             this.holdingTouch = false;
         })
-        this.bottom.addEventListener("touchstart", () => {
+        this.right.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+        })
+        this.bottom.addEventListener("touchstart", (e) => {
+            e.preventDefault();
             this.currentDirection = Vector2.DOWN;
             this.holdingTouch = true;
-            // this.movePlayer();
         })
-        this.bottom.addEventListener("touchend", () => {
+        this.bottom.addEventListener("touchend", (e) => {
+            e.preventDefault();
             this.currentDirection = null;
             this.holdingTouch = false;
         })
-        this.top.addEventListener("touchstart", () => {
+        this.bottom.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+        })
+        this.top.addEventListener("touchstart", (e) => {
+            e.preventDefault();
             this.currentDirection = Vector2.UP;
             this.holdingTouch = true;
-            // this.movePlayer();
         })
-        this.top.addEventListener("touchend", () => {
+        this.top.addEventListener("touchend", (e) => {
+            e.preventDefault();
             this.currentDirection = null;
             this.holdingTouch = false;
+        })
+        this.top.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
         })
     }
 
     public enable () {
-        const display = document.querySelector("#display")!;
-        display.innerHTML = overworldTouchUI;
+        controls.style.visibility = "visible";
+        this.initialise();
     }
 
     public disable() {
-        const display = document.querySelector("#display")!;
-        display.innerHTML = "";
+        // controls.innerHTML = "";
+        controls.style.visibility = "hidden";
     }
 }

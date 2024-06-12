@@ -4,6 +4,7 @@ import "./assets/ui/css/battleMenu.css";
 import "./assets/ui/css/attackMenu.css";
 import "./assets/ui/css/hpHud.css";
 import "./assets/ui/css/overworldTouchUi.css";
+import "./assets/ui/css/mainMenu.css";
 
 import Phaser from "phaser";
 import {constants} from "./util/util.ts";
@@ -23,7 +24,7 @@ const config: Phaser.Types.Core.GameConfig = {
 }
 
 const game = new Phaser.Game(config);
-const display = document.querySelector<HTMLDivElement>("#display")!;
+export const display = document.querySelector<HTMLDivElement>("#display")!;
 
 display.style.height = window.innerHeight + "px";
 display.style.width = window.innerWidth + "px";
@@ -43,6 +44,10 @@ const gameCanvas = document.querySelector<HTMLCanvasElement>("canvas")!;
 gameCanvas.style.top = "0";
 gameCanvas.style.left = "0";
 
+export const controls = document.querySelector<HTMLDivElement>("#controls")!;
+controls.style.position = "absolute";
+controls.style.height = "100%";
+controls.style.width = "100%";
+
 export const GameState = new State();
-export const touch = new TouchControls()
-touch.initialise();
+export const touch = new TouchControls();

@@ -1,5 +1,4 @@
 #overworldTouchUi_container {
-    /*background: red;*/
     height: 100%;
     width: 100%;
     display: flex;
@@ -10,6 +9,11 @@
 
 #overworldTouchUi_top {
     height: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 34%;
     width: 100%;
     /*border-style: solid;*/
 }
@@ -26,7 +30,11 @@
 }
 
 #overworldTouchUi_bottom {
-    height: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 34%;
     width: 100%;
     /*border-style: solid;*/
 
@@ -35,6 +43,9 @@
 .overworldTouchUi_spacing {
     width: 33%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /*border-style: solid;*/
 
 }
