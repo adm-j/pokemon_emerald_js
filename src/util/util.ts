@@ -1,14 +1,29 @@
 import Vector2 = Phaser.Math.Vector2;
 import {Nature} from "../game/Enums.ts";
 
+const getWidth = () => {
+    const screenWidth: number = window.innerWidth;
+    const breakpoint = 480
+    if (screenWidth > breakpoint) {
+        return breakpoint;
+    }
+    return screenWidth;
+}
+
+const getHeight = () => {
+    const screenHeight: number = window.innerHeight;
+    const breakpoint = 780
+    if (screenHeight > breakpoint) {
+        return breakpoint;
+    }
+    return screenHeight;
+}
+
 export const constants = {
-    // canvasWidth: 800,
-    // canvasHeight: 600,
-    canvasWidth: window.innerWidth,
-    canvasHeight: window.innerHeight,
+    canvasWidth: getWidth(),
+    canvasHeight: getHeight(),
     tileWidth: 16,
     tileHeight: 16,
-    // test: window.in
 }
 
 export const placeholderText = () => {
@@ -57,12 +72,14 @@ export const getNatureBonus = (nature: Nature) => {
             return [1.1, 1, 1, 0.9, 1];
         case Nature.bashful:
             return [1, 1, 1, 1, 1];
-            case Nature.careful:
-                return [1, 1, 1, 1.1, 0.9];
+        case Nature.careful:
+            return [1, 1, 1, 1.1, 0.9];
         case Nature.bold:
             return [0.9, 1.1, 1, 1, 1];
         case Nature.brave:
             return [1.1, 1, 0.9, 1, 1];
+        default:
+            return [1, 1, 1, 1, 1];
     }
 }
 

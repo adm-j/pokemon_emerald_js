@@ -11,11 +11,14 @@ import {constants} from "./util/util.ts";
 import {SceneLoader} from "./game/SceneLoader.ts";
 import {State} from "./game/State.ts";
 import {TouchControls} from "./game/TouchControls.ts";
+// import {OverworldState} from "./game/Enums.ts";
+import {SceneManager} from "./game/SceneManager.ts";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: constants.canvasWidth,
+    height: constants.canvasHeight,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
     scene: SceneLoader,
     parent: "container",
     physics: {
@@ -23,31 +26,36 @@ const config: Phaser.Types.Core.GameConfig = {
     }
 }
 
-const game = new Phaser.Game(config);
+// @ts-ignore
+export const game = new Phaser.Game(config);
 export const display = document.querySelector<HTMLDivElement>("#display")!;
 
-display.style.height = window.innerHeight + "px";
-display.style.width = window.innerWidth + "px";
-
-window.addEventListener("resize", () => {
-    game.scale.resize(window.innerWidth, window.innerHeight);
-
-    constants.canvasWidth = window.innerWidth;
-    constants.canvasHeight = window.innerHeight;
-
-    display.style.width = window.innerWidth + "px";
-    display.style.height = window.innerHeight + "px";
-    },false
-);
-
 const gameCanvas = document.querySelector<HTMLCanvasElement>("canvas")!;
-gameCanvas.style.top = "0";
-gameCanvas.style.left = "0";
+
+display.style.height = constants.canvasHeight + "px";
+display.style.width = constants.canvasWidth + "px";
+display.style.marginLeft = gameCanvas.style.marginLeft;
+display.style.marginTop = gameCanvas.style.marginTop;
+
+// window.addEventListener("resize", () => {
+//     game.scale.resize(constants.canvasWidth, constants.canvasHeight);
+//
+//     // constants.canvasWidth = window.innerWidth;
+//     // constants.canvasHeight = window.innerHeight;
+//
+//     display.style.width = window.innerWidth + "px";
+//     display.style.height = window.innerHeight + "px";
+//     },false
+// );
 
 export const controls = document.querySelector<HTMLDivElement>("#controls")!;
 controls.style.position = "absolute";
-controls.style.height = "100%";
-controls.style.width = "100%";
+controls.style.height = constants.canvasHeight + "px";
+controls.style.width = constants.canvasWidth + "px";
+// settings these keeps our controls inline with the canvas
+controls.style.marginLeft = gameCanvas.style.marginLeft;
+controls.style.marginTop = gameCanvas.style.marginTop;
 
 export const GameState = new State();
 export const touch = new TouchControls();
+export const sceneManager = new SceneManager();

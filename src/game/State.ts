@@ -1,4 +1,4 @@
-import {SceneName} from "./Enums.ts";
+import {OverworldState, SceneName} from "./Enums.ts";
 
 export class State {
     constructor() {
@@ -11,7 +11,8 @@ export class State {
         playerPreviousScene: "",
         NpcGridPositions: {},
         PlayerGridPosition: {x: 0, y: 0},
-
+        currentState: OverworldState.movement,
+        runEvent: false
     };
 
     public system = {

@@ -1,6 +1,6 @@
 import menu from "../assets/ui/html/mainMenu.html?raw";
 
-import {display, GameState, touch} from "../main.ts";
+import {display, touch} from "../main.ts";
 import {SceneName} from "../game/Enums.ts";
 
 export class Menu extends Phaser.Scene {
@@ -30,7 +30,7 @@ export class Menu extends Phaser.Scene {
             // this will need more complex scene logic in future, though this may be handled in a seperate scene?
             this.scene.stop(SceneName.menu);
             this.scene.run(SceneName.littleRootTown)
-            GameState.setNextPlayerLocation(SceneName.littleRootTown);
+            // GameState.setNextPlayerLocation(SceneName.littleRootTown);
             touch.enable();
             display.innerHTML = "";
         }, timerMS);

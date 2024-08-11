@@ -7,7 +7,7 @@ import playerDown from "../assets/sprites/player/male_pc_down.png";
 import playerRight from "../assets/sprites/player/male_pc_right.png";
 import playerLeft from "../assets/sprites/player/male_pc_left.png";
 import Vector2 = Phaser.Math.Vector2;
-import {GameState, touch} from "../main.ts";
+import {GameState, sceneManager, touch} from "../main.ts";
 
 export class Route101 extends Phaser.Scene {
     constructor() {
@@ -57,12 +57,10 @@ export class Route101 extends Phaser.Scene {
     }
 
     update() {
-
         if (this.player.getCurrentGridPosition().y >= 39) {
             if (!this.player.isMoving) {
-                GameState.Game.playerPreviousScene = SceneName.route101;
-                GameState.Game.playerCurrentScene = SceneName.littleRootTown;
-                this.scene.start(SceneName.littleRootTown);
+                this.player.isMoving = true;
+                sceneManager.ChangeScene(SceneName.littleRootTown);
             }
         }
 
@@ -77,8 +75,7 @@ export class Route101 extends Phaser.Scene {
         } else if (cursors?.down.isDown) {
             this.player.move(Vector2.DOWN);
         } else if (cursors?.space.isDown) {
-            this.scene.pause(SceneName.route101);
-            this.scene.run(SceneName.pausemenu);
+            sceneManager.PauseScene();
         }
 
         if (touch.holdingTouch && touch.currentDirection) {

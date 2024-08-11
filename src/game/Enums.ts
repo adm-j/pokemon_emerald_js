@@ -14,14 +14,22 @@ export enum SceneName {
     menu = "Menu",
     battle = "Battle",
     pausemenu = "PauseMenu",
+    chatmenu = "ChatMenu",
     littleRootTown = "Littleroottown",
     route101 = "Route101"
+}
+
+export enum OverworldState {
+    movement = 0,
+    chat = 1,
+    battle = 2,
+    pause = 3
 }
 
 export enum Nature {
     adamant = 0,
     bashful = 1,
-    bold  = 2,
+    bold = 2,
     brave = 3,
     calm = 4,
     careful = 5,

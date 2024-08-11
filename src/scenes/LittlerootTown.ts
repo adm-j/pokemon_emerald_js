@@ -17,7 +17,7 @@ import girlUp from "../assets/sprites/npc/girl/girl_up.png";
 import {Npc} from "../game/Npc.ts";
 import {SceneName} from "../game/Enums.ts";
 import {randomVector} from "../util/util.ts";
-import {GameState, touch} from "../main.ts";
+import {GameState, sceneManager, touch} from "../main.ts";
 
 
 export class LittlerootTown extends Phaser.Scene {
@@ -44,7 +44,7 @@ export class LittlerootTown extends Phaser.Scene {
     }
 
     create() {
-        GameState.Game.playerCurrentScene = SceneName.littleRootTown;
+        // GameState.Game.playerCurrentScene = SceneName.littleRootTown;
         const map = this.make.tilemap({key: "little_root_town"});
         const tileset = map.addTilesetImage("emerald_exterior", "internal_tiles")!;
         const ground = map.createLayer("ground", tileset, 0, 0);
@@ -61,7 +61,7 @@ export class LittlerootTown extends Phaser.Scene {
         collision?.setCollisionByExclusion([0, 1])
 
         const getPlayerPos = () => {    // todo: implement this in a more modular way
-            if (GameState.Game.playerPreviousScene === SceneName.route101) {
+            if (sceneManager.getState.playerPreviousScene === SceneName.route101) {
                 // @ts-ignore
                 return new Vector2(GameState.Game.NpcGridPositions.player.x, 7);
             } else {
@@ -110,9 +110,7 @@ export class LittlerootTown extends Phaser.Scene {
         if (this.player.getCurrentGridPosition().y <= 6) {
             if (!this.player.isMoving) {
                 this.player.isMoving = true;
-                GameState.Game.playerPreviousScene = SceneName.littleRootTown;
-                GameState.Game.playerCurrentScene = SceneName.route101;
-                this.scene.start(SceneName.route101);
+                sceneManager.ChangeScene(SceneName.route101);
             }
         }
 
@@ -127,8 +125,7 @@ export class LittlerootTown extends Phaser.Scene {
         } else if (cursors?.down.isDown) {
             this.player.move(Vector2.DOWN);
         } else if (cursors?.space.isDown) {
-            this.scene.pause(SceneName.littleRootTown);
-            this.scene.run(SceneName.pausemenu);
+            sceneManager.PauseScene();
         }
 
         if (touch.holdingTouch && touch.currentDirection) {

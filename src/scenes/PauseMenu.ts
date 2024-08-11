@@ -1,4 +1,5 @@
 import {SceneName} from "../game/Enums.ts";
+import {sceneManager} from "../main.ts";
 
 export class PauseMenu extends Phaser.Scene {
 
@@ -10,7 +11,7 @@ export class PauseMenu extends Phaser.Scene {
         super(SceneName.pausemenu);
     }
 
-    preload() : void {
+    preload(): void {
     }
 
     create(): void {
@@ -60,8 +61,7 @@ export class PauseMenu extends Phaser.Scene {
     update(): void {
         const cursors = this.input.keyboard?.createCursorKeys();
         if (cursors?.space.isDown) {
-            this.scene.stop(SceneName.pausemenu);
-            this.scene.resume(SceneName.littleRootTown);
+            sceneManager.ResumeScene();
         }
     }
 }
