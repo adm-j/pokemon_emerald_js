@@ -1,5 +1,6 @@
 import Vector2 = Phaser.Math.Vector2;
-import {Nature} from "../game/Enums.ts";
+import {Nature, SceneName} from "../game/Enums.ts";
+import {game} from "../main.ts";
 
 const getWidth = () => {
     const screenWidth: number = window.innerWidth;
@@ -97,5 +98,15 @@ export const parseLine = (text: string) => {
         return text.slice(0, lineEnd);
     } else {
         return text;
+    }
+}
+
+/**
+ * Starts debug scene if DEBUG environment variable exists
+ */
+export const enableDebugOptions = () => {
+    const debug = Number(import.meta.env.VITE_DEBUG);
+    if (debug) {
+        game.scene.run(SceneName.debug);
     }
 }

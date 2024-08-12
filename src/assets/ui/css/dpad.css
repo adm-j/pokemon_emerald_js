@@ -1,19 +1,40 @@
 #dpad {
     /*background: red;*/
-    height: 150px;
-    width: 150px;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 20px;
+    margin-bottom: 50px;
+}
+
+.dpad_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.dpad_block {
+    height: 50px;
+    width: 50px;
+}
+
+/*.dpad_spacing {*/
+/*    height: 33%;*/
+/*    width: 33%;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background: red;*/
+/*}*/
+
+.dpad_chevron {
 }
 
 .dpad_spacing {
-    height: 33%;
-    width: 33%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 100px;
 }
 
-.dpad_chevron {
+.highlight {
+    background: red;
 }

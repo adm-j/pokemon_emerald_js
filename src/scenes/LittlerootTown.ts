@@ -16,7 +16,7 @@ import girlUp from "../assets/sprites/npc/girl/girl_up.png";
 
 import {Npc} from "../game/Npc.ts";
 import {SceneName} from "../game/Enums.ts";
-import {randomVector} from "../util/util.ts";
+import {enableDebugOptions, randomVector} from "../util/util.ts";
 import {GameState, sceneManager, touch} from "../main.ts";
 
 
@@ -44,7 +44,6 @@ export class LittlerootTown extends Phaser.Scene {
     }
 
     create() {
-        // GameState.Game.playerCurrentScene = SceneName.littleRootTown;
         const map = this.make.tilemap({key: "little_root_town"});
         const tileset = map.addTilesetImage("emerald_exterior", "internal_tiles")!;
         const ground = map.createLayer("ground", tileset, 0, 0);
@@ -101,7 +100,7 @@ export class LittlerootTown extends Phaser.Scene {
         this.cameras.main.zoom = 3;
         this.cameras.main.roundPixels = true;
 
-        this.scene.run(SceneName.debug);
+        enableDebugOptions()
         touch.enable();
     }
 
