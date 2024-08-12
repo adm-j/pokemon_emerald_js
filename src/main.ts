@@ -11,7 +11,6 @@ import {constants} from "./util/util.ts";
 import {SceneLoader} from "./game/SceneLoader.ts";
 import {State} from "./game/State.ts";
 import {TouchControls} from "./game/TouchControls.ts";
-// import {OverworldState} from "./game/Enums.ts";
 import {SceneManager} from "./game/SceneManager.ts";
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -58,4 +57,5 @@ controls.style.marginTop = gameCanvas.style.marginTop;
 
 export const GameState = new State();
 export const touch = new TouchControls();
+// touch.enable();
 export const sceneManager = new SceneManager();

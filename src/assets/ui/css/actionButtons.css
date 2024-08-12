@@ -1,17 +1,18 @@
 #actionButtons {
     background: red;
-    margin-right: 20px;
+    margin-right: 30px;
     margin-bottom: 50px;
 }
 
 .actionButtons_row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .actionButtons_button {
-    height: 55px;
-    width: 55px;
+    height: auto;
+    width: auto;
+    padding: 10px;
     align-content: center;
     text-align: center;
     font-size: 40px;

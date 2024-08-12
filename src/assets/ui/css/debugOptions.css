@@ -1,0 +1,16 @@
+#debugOptions {
+
+}
+
+.debugOptions_segment {
+    height: auto;
+    width: auto;
+    font-size: 40px;
+    background: red;
+    padding: 10px;
+    z-index: 100;
+}
+
+.debug_chat {
+
+}

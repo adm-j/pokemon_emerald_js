@@ -1,30 +1,29 @@
 import overworldTouchUI from "../assets/ui/html/overworldTouchUi.html?raw";
 import "../assets/ui/css/dpad.css";
 import "../assets/ui/css/actionButtons.css";
+import "../assets/ui/css/debugOptions.css"
 import dpad from "../assets/ui/html/dpad.html?raw";
 import buttons from "../assets/ui/html/actionButtons.html?raw";
+import debugOptions from "../assets/ui/html/debugOptions.html?raw";
 import Vector2 = Phaser.Math.Vector2;
-import {controls} from "../main.ts";
+import {controls, sceneManager, touch} from "../main.ts";
 
 export class TouchControls {
 
-    constructor() {
-        this.initialise();
-    }
+    constructor() {}
 
     private left: Element | null = null;
     private top: Element | null = null;
     private right: Element | null = null;
     private bottom: Element | null = null;
 
-    private A: Element | null = null;
-    private B: Element | null = null;
-    private M: Element | null = null;
+    private interact: Element | null = null;
+    private menu: Element | null = null;
 
     public currentDirection: Vector2 | null = null;
     public holdingTouch: boolean = false;
 
-    private initialise () {
+    public InitialiseControls() {
         controls.innerHTML = overworldTouchUI;
 
         // DPAD
@@ -94,35 +93,49 @@ export class TouchControls {
         const bottomRight = document.querySelector("#overworldTouchUi_bottom_right")!;
         bottomRight.innerHTML = buttons;
 
-        this.A = document.querySelector(".actionButtons_A")!;
-        this.B = document.querySelector(".actionButtons_B")!;
-        this.M = document.querySelector(".actionButtons_M")!;
+        this.interact = document.querySelector(".actionButtons_interact")!;
+        this.menu = document.querySelector(".actionButtons_menu")!;
 
-        this.A.addEventListener("touchstart", (e) => {
+        this.interact.addEventListener("touchstart", (e) => {
             e.preventDefault();
-            alert("A pressed - this will be the interact button");
+            alert("interact button pressed - this will be the interact button");
         });
 
-        this.B.addEventListener("touchstart", (e) => {
+        this.menu.addEventListener("touchstart", (e) => {
             e.preventDefault();
-            alert("B pressed - may be redundant");
+            alert("menu button pressed - may be redundant");
         });
 
-        this.M.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            alert("M pressed - this will be the pause menu");
-            // sceneManager.PauseScene();
-        })
+        // debug
+        if (Number(import.meta.env.VITE_DEBUG)) {
+            const debug = document.querySelector("#overworldTouchUi_top_right")!;
+            debug.innerHTML = debugOptions;
 
+            const openChat = document.querySelector("#debugOptions")!;
+
+            const debugAction = (e: Event) => {
+                e.preventDefault();
+                // alert("Debug button");
+                touch.disable();
+                sceneManager.StartChatScene();
+            }
+
+            openChat.addEventListener("touchstart", (e) => {
+                debugAction(e);
+            });
+            openChat.addEventListener("click", (e) => {
+                debugAction(e);
+            });
+        }
     }
 
-    public enable () {
+    public enable() {
         controls.style.visibility = "visible";
-        this.initialise();
+        this.InitialiseControls();
     }
 
     public disable() {
-        // controls.innerHTML = "";
+        controls.innerHTML = "";
         controls.style.visibility = "hidden";
     }
 }

@@ -64,6 +64,7 @@ export class SceneManager {
 
     public StartChatScene(): void {
         if (this.state.currentState === OverworldState.movement) {
+            this.state.currentState = OverworldState.chat;
             game.scene.pause(this.state.playerCurrentScene);
             game.scene.run(SceneName.chatmenu);
             this.state.runEvent = true;
@@ -74,7 +75,8 @@ export class SceneManager {
 
     public EndChatScene(): void {
         if (this.state.currentState === OverworldState.chat) {
-            game.scene.stop(SceneName.pausemenu);
+            this.state.currentState = OverworldState.movement;
+            game.scene.stop(SceneName.chatmenu);
             game.scene.run(GameState.Game.playerCurrentScene);
             this.state.runEvent = true;
         } else {

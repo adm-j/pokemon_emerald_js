@@ -31,8 +31,8 @@ export class Menu extends Phaser.Scene {
             this.scene.stop(SceneName.menu);
             this.scene.run(SceneName.littleRootTown)
             // GameState.setNextPlayerLocation(SceneName.littleRootTown);
-            touch.enable();
             display.innerHTML = "";
+            // touch.enable();
         }, timerMS);
     }
 

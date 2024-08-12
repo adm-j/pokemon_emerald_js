@@ -1,0 +1,22 @@
+#chatMenu {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#chatMenuContainer {
+    height: 100%;
+}
+
+.chatMenu_top_segment {
+    height: 75%;
+    width: 100%;
+    background: red;
+}
+
+.chatMenu_textbox {
+    height: 25%;
+    width: 100%;
+    background: blue;
+}
