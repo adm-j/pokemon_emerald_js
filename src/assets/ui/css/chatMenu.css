@@ -10,13 +10,38 @@
 }
 
 .chatMenu_top_segment {
-    height: 75%;
+    height: 65%;
     width: 100%;
-    background: red;
+    /*background: red;*/
+}
+
+.chatMenu_textbox_container {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .chatMenu_textbox {
-    height: 25%;
+    color: #242424;
+    background: white;
+    height: 60%;
+    width: 95%;
+    border-style: solid;
+    border-color: darkslategrey;
+    border-radius: 8px;
+}
+
+.chatMenu_textbox_content {
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 100%;
+    width: 90%;
+}
+
+.chatMenu_textbox_lines {
+    height: 100%;
     width: 100%;
-    background: blue;
+    overflow: hidden;
 }

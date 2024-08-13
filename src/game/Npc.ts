@@ -30,4 +30,13 @@ export class Npc extends player {
     public wander(direction: Phaser.Math.Vector2) {
         super.move(direction);
     }
+
+    // public interact() {
+    //     const npcPostion = this.getCurrentGridPosition();
+    //     const playerPosition = GameState.Game.PlayerGridPosition;
+    //     const coords = {x: npcPostion.x - playerPosition.x, y: npcPostion.y - playerPosition.y};
+    //     if ((coords.x === 1 || coords.x === -1) && (coords.y === 1 || coords.y === -1)) {
+    //         sceneManager.StartChatScene(["Testing this works!"]);
+    //     }
+    // }
 }

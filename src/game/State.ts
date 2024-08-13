@@ -2,7 +2,6 @@ import {OverworldState, SceneName} from "./Enums.ts";
 
 export class State {
     constructor() {
-
     }
 
     public Game = {
@@ -15,26 +14,32 @@ export class State {
         runEvent: false
     };
 
-    public system = {
-        gameState: ""
+    public System = {
+        chat: [""],
+        currentLine: 0,
     }
 
-    public audio = {
-
+    public Level = {
+        interactions: {
+            girl1: ["Hi! I'm Girl 1! Yes I know, what a silly name...", "But hey, this is pretty cool right? RIGHT?!"],
+            girl2: ["I don't like Pokemon. It sucks, I'm trapped in this village!"]
+        }
     }
 
-    public setNextPlayerLocation = (nextScene: string) : void => {
+    public audio = {}
+
+    public setNextPlayerLocation = (nextScene: string): void => {
         this.Game.playerPreviousScene = this.Game.playerCurrentScene;
         // @ts-ignore
         this.Game.playerCurrentScene = nextScene;
     }
 
-    public setGridPosition(name: string, position: {x: number, y: number}): void {
+    public setGridPosition(name: string, position: { x: number, y: number }): void {
         // @ts-ignore
         this.Game.NpcGridPositions[name] = position;
     }
 
-    public setPlayerGridPosition(position: {x: number, y: number}): void {
+    public setPlayerGridPosition(position: { x: number, y: number }): void {
         this.Game.PlayerGridPosition = position;
     }
 
@@ -43,7 +48,7 @@ export class State {
         this.Game.PlayerGridPosition = {x: 0, y: 0};
     }
 
-    public getGridPositions(): {x: number, y: number}[] {
+    public getGridPositions(): { x: number, y: number }[] {
         return Object.values(this.Game.NpcGridPositions);
     }
 }

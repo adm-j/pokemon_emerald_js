@@ -72,6 +72,7 @@ export class LittlerootTown extends Phaser.Scene {
         const girl = this.add.sprite(0, 0, "girl_down", 0);
         const girl2 = this.add.sprite(0, 0, "girl_up", 0);
 
+
         const playerCharacter = new player(this.tweens, pcSprite, collision, getPlayerPos());
         const npcTest: Npc[] = [
             new Npc(this.tweens, girl, collision, new Vector2(17, 20), "girl_1"),
@@ -80,7 +81,6 @@ export class LittlerootTown extends Phaser.Scene {
 
         this.player = playerCharacter;
         this.npcGroup = npcTest;
-
 
         this.time.addEvent({
             delay: 1000,

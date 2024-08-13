@@ -6,11 +6,12 @@ import dpad from "../assets/ui/html/dpad.html?raw";
 import buttons from "../assets/ui/html/actionButtons.html?raw";
 import debugOptions from "../assets/ui/html/debugOptions.html?raw";
 import Vector2 = Phaser.Math.Vector2;
-import {controls, sceneManager, touch} from "../main.ts";
+import {controls, sceneManager} from "../main.ts";
 
 export class TouchControls {
 
-    constructor() {}
+    constructor() {
+    }
 
     private left: Element | null = null;
     private top: Element | null = null;
@@ -96,14 +97,25 @@ export class TouchControls {
         this.interact = document.querySelector(".actionButtons_interact")!;
         this.menu = document.querySelector(".actionButtons_menu")!;
 
-        this.interact.addEventListener("touchstart", (e) => {
+        this.interact.addEventListener("click", (e) => {
             e.preventDefault();
             alert("interact button pressed - this will be the interact button");
+            // const npcs = GameState.Game.NpcGridPositions;
+            // for (const npc in npcs) {
+            //     if (npc === "player") {
+            //         continue;
+            //     }
+            //     // @ts-ignore
+            //     const pos = {x: npcs.player.x - npc.x, y: npcs.player.y - npc.y};
+            //     if (pos.x === -1 || pos.x === 1 && pos.y === -1 || pos.y === 1) {
+            //         sceneManager.StartChatScene(GameState.Level.interactions.girl1);
+            //     }
+            // }
         });
 
         this.menu.addEventListener("touchstart", (e) => {
             e.preventDefault();
-            alert("menu button pressed - may be redundant");
+            alert("menu button pressed - this will open the pause menu");
         });
 
         // debug
@@ -116,8 +128,7 @@ export class TouchControls {
             const debugAction = (e: Event) => {
                 e.preventDefault();
                 // alert("Debug button");
-                touch.disable();
-                sceneManager.StartChatScene();
+                sceneManager.StartChatScene(["Hello world!", "This is a test."]);
             }
 
             openChat.addEventListener("touchstart", (e) => {

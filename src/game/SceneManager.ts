@@ -1,5 +1,5 @@
 import {OverworldState, SceneName} from "./Enums.ts";
-import {game, GameState} from "../main.ts";
+import {game, GameState, touch} from "../main.ts";
 
 export class SceneManager {
     constructor() {
@@ -62,11 +62,15 @@ export class SceneManager {
         }
     }
 
-    public StartChatScene(): void {
+    public StartChatScene(text: string[]): void {
         if (this.state.currentState === OverworldState.movement) {
             this.state.currentState = OverworldState.chat;
+            GameState.System.chat = text;
+            console.log(GameState.System.chat);
+            GameState.System.currentLine = 0;
             game.scene.pause(this.state.playerCurrentScene);
             game.scene.run(SceneName.chatmenu);
+            touch.disable();
             this.state.runEvent = true;
         } else {
             console.error("StartChatScene: Scene state is not movement")
@@ -76,8 +80,9 @@ export class SceneManager {
     public EndChatScene(): void {
         if (this.state.currentState === OverworldState.chat) {
             this.state.currentState = OverworldState.movement;
-            game.scene.stop(SceneName.chatmenu);
             game.scene.run(GameState.Game.playerCurrentScene);
+            game.scene.stop(SceneName.chatmenu);
+            touch.enable();
             this.state.runEvent = true;
         } else {
             console.error("EndChatScene: Chat menu is not playing")
