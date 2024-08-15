@@ -42,11 +42,10 @@ export class Route101 extends Phaser.Scene {
         collision?.setDepth(-1);
         collision?.setCollisionByExclusion([0, 1])
 
-        // @ts-ignore
-        const playerPos = GameState.Game.NpcGridPositions.player;
+        const playerPos = GameState.getPlayerPosition();
 
         const pcSprite = this.add.sprite(0,0, "player_up", 0);
-        const playerCharacter = new player(this.tweens, pcSprite, collision, new Vector2(playerPos.x, 38));
+        const playerCharacter = new player(this.tweens, pcSprite, collision, new Vector2(playerPos!.x, 38));
 
         this.player = playerCharacter;
 

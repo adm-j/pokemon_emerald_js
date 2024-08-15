@@ -25,8 +25,8 @@ export class ChatMenu extends Phaser.Scene {
     }
 
     private Continue() {
-        if (GameState.System.currentLine < GameState.System.chat.length - 1) {
-            GameState.System.currentLine++;
+        if (GameState.System.CurrentLine < GameState.System.Chat.length - 1) {
+            GameState.System.CurrentLine++;
             this.displayText()
         } else {
             display.innerHTML = "";
@@ -36,7 +36,7 @@ export class ChatMenu extends Phaser.Scene {
 
     public displayText() {
         if (this.chatLine1) {
-            this.chatLine1.innerText = GameState.System.chat[GameState.System.currentLine];
+            this.chatLine1.innerText = GameState.System.Chat[GameState.System.CurrentLine];
         } else {
             console.error("Could not set text, chat element is not set")
         }

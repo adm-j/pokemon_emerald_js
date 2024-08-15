@@ -25,8 +25,8 @@ export class LittlerootTown extends Phaser.Scene {
         super(SceneName.littleRootTown);
     }
 
-    private player! : player;
-    private npcGroup! : Npc[];
+    private player!: player;
+    private npcGroup!: Npc[];
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -60,15 +60,15 @@ export class LittlerootTown extends Phaser.Scene {
         collision?.setCollisionByExclusion([0, 1])
 
         const getPlayerPos = () => {    // todo: implement this in a more modular way
+            const playerPos = GameState.getPlayerPosition();
             if (sceneManager.getState.playerPreviousScene === SceneName.route101) {
-                // @ts-ignore
-                return new Vector2(GameState.Game.NpcGridPositions.player.x, 7);
+                return new Vector2(playerPos!.x, 7);
             } else {
                 return new Vector2(15, 18);
             }
         }
 
-        const pcSprite = this.add.sprite(0,0, "player_down", 0);
+        const pcSprite = this.add.sprite(0, 0, "player_down", 0);
         const girl = this.add.sprite(0, 0, "girl_down", 0);
         const girl2 = this.add.sprite(0, 0, "girl_up", 0);
 
@@ -81,14 +81,16 @@ export class LittlerootTown extends Phaser.Scene {
 
         this.player = playerCharacter;
         this.npcGroup = npcTest;
+        this.npcGroup[0].setDialogue(["Hello player! I'm just chillin'.", "Cool place huh?"]);
+        this.npcGroup[1].setDialogue(["I don't like pokemon. They are annoying.", "Not as annoying as you though! Go away!"]);
 
         this.time.addEvent({
             delay: 1000,
             callback: () => {
-                for (let i =0; i<this.npcGroup.length; i++) {
+                for (let i = 0; i < this.npcGroup.length; i++) {
                     const randomMS = Math.floor(Math.random() * 1000);
-                    setTimeout(()=> {
-                    this.npcGroup[i].wander(randomVector());
+                    setTimeout(() => {
+                        this.npcGroup[i].wander(randomVector());
                     }, randomMS);
                 }
             },

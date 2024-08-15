@@ -4,13 +4,14 @@ import {setPlayerAnimations} from "../util/animations.ts";
 import {GameState} from "../main.ts";
 import Vector2 = Phaser.Math.Vector2;
 import {getVectorDirectionAsString} from "../util/util.ts";
+import {Coordinates} from "../util/interfaces.ts";
 
 export class player {
     public isMoving: boolean = false;
     private stepCount: MovementState = MovementState.stepAnim1;
     private currentFacePosition: Vector2 = Vector2.DOWN;
     private animationDuration: PlayerAnimationDelay = PlayerAnimationDelay.move;
-    private name: string = "player";
+    private readonly name: string;
 
     constructor(
         private tween: Phaser.Tweens.TweenManager,
@@ -19,13 +20,12 @@ export class player {
         private tilePos: Phaser.Math.Vector2,
         // private npcGroup?: Phaser.GameObjects.Sprite[]
     ) {
+        this.name = "player";
         this.sprite.setOrigin(0, 1);
         this.sprite.setDepth(3);
         this.setGridPosition(new Vector2(this.tilePos));
         setPlayerAnimations(this.sprite.anims);
-        // GameState.setPlayerGridPosition(tilePos)
-        GameState.setGridPosition(this.name, new Vector2(tilePos));
-
+        GameState.setGridPosition(this.name, new Vector2(tilePos), this.currentFacePosition);
     }
 
     public setGridPosition(pos: Phaser.Math.Vector2): void {
@@ -37,12 +37,12 @@ export class player {
         return getMapCoordinates(x, y);
     }
 
-    public getCurrentGridPosition(): { x: number, y: number } {
+    public getCurrentGridPosition(): Coordinates {
         const curPos = this.sprite.getBottomCenter();
         return getMapCoordinates(curPos.x, curPos.y);
     }
 
-    private checkForCollison(direction: Vector2): { x: number; y: number } {
+    private checkForCollison(direction: Vector2): Coordinates {
 
 
         const posX = this.sprite.x + (direction.x * 16);
@@ -68,6 +68,13 @@ export class player {
             return {x: posX, y: posY + 16};
         }
     }
+
+    private facePosition(direction: Vector2): void {
+        const animName: string = this.name.split("_")[0];
+        const characterDirection = getVectorDirectionAsString(direction);
+        this.sprite.anims?.play(`${animName}_face_${characterDirection}`);
+    } // todo: in order to manage the player's faced position we will need to manage
+    // it using state!
 
     private walkingAnimation(direction: Vector2): Vector2 {
         const animName: string = this.name.split("_")[0]; //parse names to ensure fetching correct animation name
@@ -109,7 +116,7 @@ export class player {
                 if (this.animationDuration !== PlayerAnimationDelay.move) {
                     this.animationDuration = PlayerAnimationDelay.move;
                 }
-                GameState.setGridPosition(this.name, this.getCurrentGridPosition());
+                GameState.setGridPosition(this.name, this.getCurrentGridPosition(), this.currentFacePosition);
             }
         });
     }

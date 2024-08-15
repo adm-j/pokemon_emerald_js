@@ -1,5 +1,6 @@
 import {SceneName} from "../game/Enums.ts";
 import {GameState} from "../main.ts";
+import {Coordinates} from "../util/interfaces.ts";
 
 
 export class DebugScene extends Phaser.Scene {
@@ -7,8 +8,17 @@ export class DebugScene extends Phaser.Scene {
         super(SceneName.debug);
     }
 
-    private gridPos = GameState.Game.NpcGridPositions;
+    private gridPos: Coordinates | undefined = undefined;
     private debugText: Phaser.GameObjects.Text | undefined;
+
+    private GetPlayerCoordinates(): void {
+        const pos = GameState.Game.NpcGridPositions;
+        pos.forEach(element => {
+            if (element.name === "player") {
+                this.gridPos = element.position;
+            }
+        })
+    }
 
     create(): void {
         this.scene.bringToTop();
@@ -17,8 +27,7 @@ export class DebugScene extends Phaser.Scene {
             fontSize: "60px",
         }
 
-        // @ts-ignore
-        const string = `x:${this.gridPos.player.x || "n/a"} y:${this.gridPos.player.y || "n/a"}`
+        const string = `x: n/a y:" n/a"`
 
         this.debugText = this.add.text(0, 0, string, textConfig);
         this.debugText.setDepth(15);
@@ -26,7 +35,9 @@ export class DebugScene extends Phaser.Scene {
     }
 
     update() {
-        // @ts-ignore
-        this.debugText?.setText(`x:${this.gridPos.player.x || "n/a"} y:${this.gridPos.player.y || "n/a"}`);
+        this.GetPlayerCoordinates();
+        if (this.gridPos) {
+            this.debugText?.setText(`x:${this.gridPos.x || "n/a"} y:${this.gridPos.y || "n/a"}`);
+        }
     }
 }
