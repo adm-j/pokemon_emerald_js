@@ -99,7 +99,6 @@ export class TouchControls {
         this.menu = document.querySelector(".actionButtons_menu")!;
 
         this.interact.addEventListener("touchstart", handleInteract);
-
         this.interact.addEventListener("click", handleInteract);
 
         this.menu.addEventListener("touchstart", (e) => {

@@ -142,6 +142,7 @@ export class LittlerootTown extends Phaser.Scene {
 
         if (touch.holdingTouch && touch.currentDirection) {
             this.entityManager.move(this.player, touch.currentDirection);
+            GameState.Game.PlayerFacingDirection = touch.currentDirection;
         }
     }
 }
