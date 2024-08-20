@@ -12,6 +12,7 @@ import {SceneLoader} from "./game/SceneLoader.ts";
 import {State} from "./game/State.ts";
 import {TouchControls} from "./game/TouchControls.ts";
 import {SceneManager} from "./game/SceneManager.ts";
+import {Character} from "./game/entities/Character.ts";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
@@ -55,7 +56,9 @@ controls.style.width = constants.canvasWidth + "px";
 controls.style.marginLeft = gameCanvas.style.marginLeft;
 controls.style.marginTop = gameCanvas.style.marginTop;
 
+// const pcSprite = game.scene.
+export const player = new Character("player", )
+
 export const GameState = new State();
 export const touch = new TouchControls();
-// touch.enable();
 export const sceneManager = new SceneManager();

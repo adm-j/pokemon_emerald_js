@@ -6,7 +6,8 @@ import dpad from "../assets/ui/html/dpad.html?raw";
 import buttons from "../assets/ui/html/actionButtons.html?raw";
 import debugOptions from "../assets/ui/html/debugOptions.html?raw";
 import Vector2 = Phaser.Math.Vector2;
-import {controls, GameState, sceneManager} from "../main.ts";
+import {controls, sceneManager} from "../main.ts";
+import {handleInteract} from "../util/util.ts";
 
 export class TouchControls {
 
@@ -97,13 +98,9 @@ export class TouchControls {
         this.interact = document.querySelector(".actionButtons_interact")!;
         this.menu = document.querySelector(".actionButtons_menu")!;
 
-        this.interact.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            const interactable = GameState.checkInteractableHit();
-            if (interactable) {
-                sceneManager.StartChatScene(interactable);
-            }
-        });
+        this.interact.addEventListener("touchstart", handleInteract);
+
+        this.interact.addEventListener("click", handleInteract);
 
         this.menu.addEventListener("touchstart", (e) => {
             e.preventDefault();

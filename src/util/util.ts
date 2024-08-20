@@ -1,6 +1,6 @@
 import Vector2 = Phaser.Math.Vector2;
 import {Nature, SceneName} from "../game/Enums.ts";
-import {game} from "../main.ts";
+import {game, GameState, sceneManager} from "../main.ts";
 
 const getWidth = () => {
     const screenWidth: number = window.innerWidth;
@@ -98,6 +98,14 @@ export const parseLine = (text: string) => {
         return text.slice(0, lineEnd);
     } else {
         return text;
+    }
+}
+
+export const handleInteract = (e?: Event): void => {
+    e?.preventDefault();
+    const interactable = GameState.checkInteractableHit();
+    if (interactable) {
+        sceneManager.StartChatScene(interactable);
     }
 }
 

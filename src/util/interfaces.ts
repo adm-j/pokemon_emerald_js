@@ -34,3 +34,8 @@ export interface GameState {
     PlayerGridPosition: CharacterCoordinates,
     CurrentState: OverworldState,
 }
+
+export interface NpcDirection {
+    name: string,
+    direction: Vector2,
+}

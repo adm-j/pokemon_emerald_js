@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
-import {player} from "../game/player.ts";
+// import {player} from "../game/player.ts";
 
 import internalTiles from "../assets/tileset/emerald_tileset.png"
 import littleRootTown from "../assets/tilemap/littleroottown.json";
@@ -16,8 +16,10 @@ import girlUp from "../assets/sprites/npc/girl/girl_up.png";
 
 import {Npc} from "../game/Npc.ts";
 import {SceneName} from "../game/Enums.ts";
-import {enableDebugOptions, randomVector} from "../util/util.ts";
+import {enableDebugOptions, handleInteract, randomVector} from "../util/util.ts";
 import {GameState, sceneManager, touch} from "../main.ts";
+import {Character} from "../game/entities/Character.ts";
+import {EntityManager} from "../game/entities/EntityManager.ts";
 
 
 export class LittlerootTown extends Phaser.Scene {
@@ -25,8 +27,9 @@ export class LittlerootTown extends Phaser.Scene {
         super(SceneName.littleRootTown);
     }
 
-    private player!: player;
+    private player!: Character;
     private npcGroup!: Npc[];
+    private entityManager!: EntityManager;
 
     preload() {
         this.load.image("internal_tiles", internalTiles);
@@ -73,7 +76,12 @@ export class LittlerootTown extends Phaser.Scene {
         const girl2 = this.add.sprite(0, 0, "girl_up", 0);
 
 
-        const playerCharacter = new player(this.tweens, pcSprite, collision, getPlayerPos());
+        const playerCharacter = new Character("player");
+        playerCharacter.Initialise(pcSprite);
+        playerCharacter.setGridPosition(getPlayerPos());
+
+        this.entityManager = new EntityManager(this.tweens, collision);
+        // const playerCharacter = new player(this.tweens, pcSprite, collision, getPlayerPos());
         const npcTest: Npc[] = [
             new Npc(this.tweens, girl, collision, new Vector2(17, 20), "girl_1"),
             new Npc(this.tweens, girl2, collision, new Vector2(19, 20), "girl_2"),
@@ -116,21 +124,24 @@ export class LittlerootTown extends Phaser.Scene {
         }
 
         const cursors = this.input.keyboard?.createCursorKeys();
-
         if (cursors?.left.isDown) {
-            this.player.move(Vector2.LEFT);
+            this.entityManager.move(this.player, Vector2.LEFT);
+            GameState.Game.PlayerFacingDirection = Vector2.LEFT;
         } else if (cursors?.right.isDown) {
-            this.player.move(Vector2.RIGHT);
+            this.entityManager.move(this.player, Vector2.RIGHT);
+            GameState.Game.PlayerFacingDirection = Vector2.RIGHT;
         } else if (cursors?.up.isDown) {
-            this.player.move(Vector2.UP);
+            this.entityManager.move(this.player, Vector2.UP);
+            GameState.Game.PlayerFacingDirection = Vector2.UP;
         } else if (cursors?.down.isDown) {
-            this.player.move(Vector2.DOWN);
+            this.entityManager.move(this.player, Vector2.DOWN);
+            GameState.Game.PlayerFacingDirection = Vector2.DOWN;
         } else if (cursors?.space.isDown) {
-            sceneManager.PauseScene();
+            handleInteract();
         }
 
         if (touch.holdingTouch && touch.currentDirection) {
-            this.player.move(touch.currentDirection);
+            this.entityManager.move(this.player, touch.currentDirection);
         }
     }
 }

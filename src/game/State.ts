@@ -4,6 +4,7 @@ import {Level} from "./states/Level.ts";
 import {CharacterDialogue, Coordinates, InteractableObjects} from "../util/interfaces.ts";
 import {SceneName} from "./Enums.ts";
 import Vector2 = Phaser.Math.Vector2;
+import {GameState} from "../main.ts";
 
 export class State {
     constructor() {
@@ -57,9 +58,6 @@ export class State {
             arr.push(this.Game.NpcGridPositions[char].position)
         }
         return arr;
-        // const values = Object.values(this.Game.NpcGridPositions.position);
-        // console.debug("values: ", values)
-        // return values;
     }
 
     public updateNpcInteractableZones(data: InteractableObjects): void {
@@ -83,7 +81,7 @@ export class State {
         for (const el in this.Level.InteractableZones) {
             const npc = this.Level.InteractableZones[el];
             for (const pos of npc.positions) {
-                if (playerPos.x === pos.x && playerPos.y === pos.y) {
+                if (playerPos.x === pos.x && playerPos.y === pos.y && pos.requiredDirection === GameState.Game.PlayerFacingDirection) {
                     console.debug("Hit!");
                     return npc.name;
                 }

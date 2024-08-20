@@ -11,7 +11,9 @@ export class player {
     private stepCount: MovementState = MovementState.stepAnim1;
     private currentFacePosition: Vector2 = Vector2.DOWN;
     private animationDuration: PlayerAnimationDelay = PlayerAnimationDelay.move;
-    private readonly name: string;
+    private readonly name: string = "";
+    // private sprite: Phaser.GameObjects.Sprite | undefined;
+    // private tween: Phaser.Tweens.TweenManager | undefined;
 
     constructor(
         private tween: Phaser.Tweens.TweenManager,
@@ -43,8 +45,6 @@ export class player {
     }
 
     private checkForCollison(direction: Vector2): Coordinates {
-
-
         const posX = this.sprite.x + (direction.x * 16);
         const posY = this.sprite.y + (direction.y * 16) - 16; //required to offset with the origin thats set
         const grid = this.getCurrentGridPosition();
@@ -69,12 +69,24 @@ export class player {
         }
     }
 
-    private facePosition(direction: Vector2): void {
-        const animName: string = this.name.split("_")[0];
-        const characterDirection = getVectorDirectionAsString(direction);
-        this.sprite.anims?.play(`${animName}_face_${characterDirection}`);
-    } // todo: in order to manage the player's faced position we will need to manage
-    // it using state!
+    // private facePosition(direction: Vector2): void {
+    //     const animName: string = this.name.split("_")[0];
+    //     const characterDirection = getVectorDirectionAsString(direction);
+    //     this.sprite.anims?.play(`${animName}_face_${characterDirection}`);
+    // }
+
+    private ChangeFacingDirection(name: string, direction: Vector2): void {
+        let exists = false;
+        for (const el in GameState.Game.NpcFacingDirection) {
+            if (GameState.Game.NpcFacingDirection[el].name === name) {
+                GameState.Game.NpcFacingDirection[el].direction = direction;
+                exists = true;
+            }
+        }
+        if (!exists) {
+            GameState.Game.NpcFacingDirection.push({name, direction})
+        }
+    }
 
     private walkingAnimation(direction: Vector2): Vector2 {
         const animName: string = this.name.split("_")[0]; //parse names to ensure fetching correct animation name
@@ -93,6 +105,7 @@ export class player {
             this.sprite.anims.play(`${animName}_walk_${characterDirection}_2`)
             this.stepCount = MovementState.stepAnim1;
         }
+        this.ChangeFacingDirection(this.name, direction);
         return direction;
     }
 
